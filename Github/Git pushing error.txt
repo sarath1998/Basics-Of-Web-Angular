@@ -1,0 +1,13 @@
+failed to push some refs to 
+'https://github.com/sarath1998/Restaurtant-App.git' 
+
+I got this error, while pushing files to repository using gitbash
+
+To solve this I used, 
+
+git pull --rebase origin master
+
+then,
+
+git push -u origin master  ..the push command
+

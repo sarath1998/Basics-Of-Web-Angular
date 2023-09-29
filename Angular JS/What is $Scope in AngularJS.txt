@@ -1,0 +1,13 @@
+https://www.tutorialspoint.com/angularjs/angularjs_scopes.htm
+
+Scope is a special JavaScript object that connects "controller 
+with views". 
+Scope "contains model data". 
+In controllers, model data is accessed via $scope object.
+
+
+Points to remeber
+
+$scope connects Cotroller to views.
+Inside Controllers, $scope object is used to access model data.
+(see youtube api application controller to have live experience)

@@ -1,0 +1,8 @@
+Colors in Android can be used with hex values..for hex values 
+see the material design link
+
+http://www.google.com/design/spec/style/color.html#color-color-palette
+
+The link provides info on the colors hex codes and also acts
+as referenece against the correct color to be used
+at right location like @menubar, title bar, color of title to be...

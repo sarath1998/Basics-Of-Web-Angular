@@ -1,0 +1,34 @@
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction
+
+This document tells, what are api's, How do they work, 
+How to use them in our code, how are they stuctured, Types of API
+and uses of APi
+
+What is an API
+
+Application Programming Interfaces (APIs) are "constructs" made 
+available in programming languages to "allow developers to create 
+complex functionality more easily." They "abstract" more complex code 
+away from you, providing some easier syntax to use in its place.
+
+Eg: Electrical Appliances
+
+-----------------------------------
+API's mainly of 2 types,
+
+Browser API's
+
+Eg: Geolocation API
+
+3rd Party API's : Enables use of their services in our app
+
+Eg: Twitter API
+----------------------
+Uses of Browser API's
+
+For Manipulating Documents
+Fetch data from the server
+Drawing and Manipulating Graphics
+Audio & Video API
+Device API
+Client Side Storage API

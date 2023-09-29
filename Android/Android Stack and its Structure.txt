@@ -1,0 +1,10 @@
+https://www.youtube.com/watch?time_continue=93&v=Gh5sbpd4T_k
+
+
+The link contains video about the stack behind Android Studio 
+and also describes how an app install and run
+
+
+Also see "Developing Android Apps" course in Udacity...
+Create Project Sun shine..Video 11..Read the notes after 
+watching video

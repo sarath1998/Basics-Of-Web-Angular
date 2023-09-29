@@ -1,0 +1,20 @@
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data
+
+The above link is about fetchig data from the server, ajax.
+
+It contains about API mechanisms( XMLHttpRequest & Fetch API). 
+Besides them, it also contains about "Promises", the new way
+of handling the request's response.
+
+There is an example, showing how to fetch data from local files
+and display them in the HTML document(fetching data from local 
+storage). 
+
+
+Before reading the above link, we need to know "Basics of Web API's",
+Read the file "Introduction to Web API's".
+
+Before reading the above link, understand the "website security" 
+from the below link
+
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/First_steps/Website_security

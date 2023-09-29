@@ -1,0 +1,22 @@
+https://www.tutorialspoint.com/angularjs/angularjs_services.htm
+
+A service is a Javascript function that is meant for doing a 
+specialized task
+
+Since they are individual functions, they are "testable" and 
+"maintanable"
+
+Controllers "call them" on equirement basis.
+
+"Services are normally injected using the 
+"Dependecy injection mechanism"
+
+Inbuilt services like "$http, $route, $window, $location"
+
+2 ways to create a service :
+
+Factory Method
+Service Method
+
+See example in the link and also see the example of youtube service
+created at the time of internship

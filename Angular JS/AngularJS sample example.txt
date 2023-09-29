@@ -1,0 +1,8 @@
+https://www.tutorialspoint.com/angularjs/angularjs_environment.htm
+
+https://www.tutorialspoint.com/angularjs/angularjs_first_application.htm
+
+Middle of the document contains an example,showing the basic step 
+view,controller and what happens when executed
+
+Read the description also to understand

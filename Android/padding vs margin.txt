@@ -1,0 +1,8 @@
+padding and margin are set in "dp"..density pixels
+
+note : for margin to apply to a view, we need a parent viewgroup
+that contains the veiw. The same thing is said in the video below.
+
+https://www.youtube.com/watch?v=k3IhoMdppwM
+
+The above link would define the diff b/w padding and margin

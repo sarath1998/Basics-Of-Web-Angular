@@ -1,0 +1,3 @@
+AngularJS is a very powerful JavaScript Framework.It is used in 
+Single Page Application (SPA) projects. It extends HTML DOM with 
+additional attributes and makes it more responsive to user actions.

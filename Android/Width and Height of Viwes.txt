@@ -1,0 +1,6 @@
+In case of Hard-coding,Width and Height are expressed in dp's...only
+
+https://material.io/design/typography/#typography-styles
+
+Use the above link, while designing the interface which acts as 
+reference for different components

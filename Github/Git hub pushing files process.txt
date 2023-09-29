@@ -1,0 +1,14 @@
+https://product.hubspot.com/blog/git-and-github-tutorial-for-beginners
+  
+				or
+
+https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+
+
+carefully read the text that tell about the commands.
+
+
+Note : 
+
+There is already a course signed up in Udacity..just view it 
+if not clear.

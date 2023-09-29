@@ -1,0 +1,20 @@
+First, setup proxy setting in Android Studio.
+
+Inside Android Studio-->Choose mode of view of project as "Android"
+
+Expand Resource Bundle 'gradle' Directory
+
+Open gradle.properties 
+
+Proxy setting will be available..see whether they 
+are correct and fine..If not, modify them and retry
+
+
+In file Explore,
+C:\Users\windows user\.gradle
+
+Goto this path and edit the details in it..Use Visual Studio Code 
+to open such file extensions..
+
+For me, In gitam N/w proxy password is missing, I filled
+the field with the password and retried. It worked.

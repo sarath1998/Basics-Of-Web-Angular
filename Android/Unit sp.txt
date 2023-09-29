@@ -1,0 +1,6 @@
+Usually sp is used to specify the size of the font.
+
+https://material.io/design/typography/#typography-styles
+
+Use the above link, while designing the interface which acts as 
+reference for different components

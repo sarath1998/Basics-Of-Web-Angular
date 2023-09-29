@@ -1,0 +1,24 @@
+https://www.tutorialspoint.com/angularjs/angularjs_views.htm
+
+To achieve this, we use ng-view, ng-template and 
+$routeprovider service directive
+
+
+
+$routeprovider is a key service which sets the configuration of URLs, 
+,maps them with the corresponding HTML page
+
+$routeprovider service is used in Youtube application, at the time 
+of internship in vizag. once see the the code.(app.js file)
+
+Points to remember
+
+routeProvider is defined as a function under config 
+of module using key as '$routeProvider'.
+
+$routeProvider.when defines a URL which is mapped to a HTML page, 
+that should be present in the same path as main HTML page. 
+
+"otherwise" is used to set the default view.
+
+"controller" is used to set the corresponding controller for the view.

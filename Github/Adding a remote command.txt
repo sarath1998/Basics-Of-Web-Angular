@@ -1,0 +1,5 @@
+git remote add origin https://github.com/sarath1998/Restaurtant-App.git
+
+It meant that we are creating a remote named "origin" that act as alias for the repository(Hyperlink).
+
+After running this command, we can just use "origin" to indicate the repository for pushing.
