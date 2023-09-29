@@ -1,0 +1,7 @@
+https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Dealing_with_files
+
+A website contains multiple types of files, 
+like text content, media related, style sheets etc.,
+
+U need a proper file structure to estasblish "good connectivity"
+b/w them and also important before u UPLOAD TO A SERVER

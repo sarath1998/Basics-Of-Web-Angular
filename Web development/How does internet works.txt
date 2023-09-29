@@ -1,0 +1,8 @@
+https://developer.mozilla.org/en-US/docs/Learn/Common_questions/How_does_the_Internet_work
+
+There is clear description of Internet,Web,Modem and Router and 
+Web servers
+
+Web is a service built on the Internet.
+Internet is all the infrastructure set up to made used by 
+the Web services those include email, etc.

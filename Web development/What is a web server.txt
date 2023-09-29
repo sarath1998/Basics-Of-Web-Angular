@@ -1,0 +1,38 @@
+https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_web_server
+
+
+
+A web server a hardware or software or both
+
+Hardware :  Computer
+Software : "HTTP SERVER" software, that understands URL's and HTTP
+
+Static web server and Dynamic web server
+
+A dyanmic web server contains an additional software namely
+"Application software" and "Database" that updates the content 
+on the pages before responding to the request.
+
+For eg, Wikipedia contains only some defined set of templates,
+but contains huge information in database. Hence, it is of dynamic
+web server type.
+
+
+A static web server does not perform any updation.They just transfer
+the pages as it is..
+
+What is a protocol
+
+A protocol defines set of rules for the communication between 
+two devices(computers).
+
+Communication between two devices requires some agreement on the
+format of how data to be exchnaged. The set of rules that defines
+the format is called a Protocol.
+
+Stateless Protocol
+
+Neither the Server nor the Client remember previous communications.
+For example, relying on HTTP alone, a server cannot remeber a 
+password you typed or what step you are on in a transaction.
+You need an application server for tasks like that.

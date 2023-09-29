@@ -1,0 +1,16 @@
+https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/What_will_your_website_look_like
+
+For this u need:
+
+Planning
+	
+	What is your website about
+	What information are you presenting on the subject
+	What does you website look like(font, backgclr, etc.)
+
+Sketching 
+Choosing the required assets
+
+Assets includes
+	Download ur images into a file that u like display
+	Choose the fonts(Google fonts source)

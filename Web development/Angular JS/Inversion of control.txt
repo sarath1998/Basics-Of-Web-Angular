@@ -1,0 +1,15 @@
+https://www.geeksforgeeks.org/software-framework-vs-library/
+
+Inversion of control -- 
+
+genral ga user code library ni call chestadi, if we r using some 
+libraries in our code.
+
+If we r using FRrameworks, then we need to develop the application
+in a standardized way. Here what happens, is Frameworks will provide 
+all the background, just u need to provide the code of ours.
+
+When we run the application, the flow of control is from 
+Framework to users code unlike a normal appication.
+
+Hence control is being reversed.. 
