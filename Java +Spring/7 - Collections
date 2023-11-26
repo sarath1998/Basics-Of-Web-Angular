@@ -1,0 +1,106 @@
+collection vs Collection vs Collections (Not a interview questions, just keep in mind).
+
+**collection Framework -- starts with small 'c'(its the topic name)
+**Collection -- It's an interface -- (Starts with the 'C')
+**Collections --  It's a Java class
+
+Java Collection means a single unit of objects.
+
+The collection in Java is a framework that provides an architecture(oka vidanam) to store and manipulate the group of objects.
+
+Collections -- Interfaces -- List, Queue, DeQueue, Set(All these interfaces extend the Collection interface)
+                          -- Map is also an interface, but will not extend the Collection interface. 
+													   So the methods declared in the Collection interface will not be implemented/available in Map interface
+            -- Classes --  ArrayList, Vector, LinkedList, Priority Queue, HashSet, LinkedHashSet, TreeSet
+
+Hierarchy of Interface
+Iterable -- Collection -- List : is implemented by ArrayList, LinkedList, Vector, Stack classes
+                       -- Queue : is implemented by PriorityQueue, DeQueue and Array Deque classes
+					   -- DeQueue : extends the Queue interface
+					   -- Set : implemented by HashSet, LinkedHashSet, Treeset
+					   
+List
+
+	Array List -- Uses a dynamic array(https://www.geeksforgeeks.org/how-do-dynamic-arrays-work/)
+	           -- Can have duplicate elements
+			   -- Maintains the order of the elements
+			   -- Non Synchronized
+				 -- Can hold null objects..as duplicate is allowed, we can store more than 1 null object
+					
+	
+	Linked List -- Uses a double linked list
+	            -- Can hold duplicate elements
+				-- Maintains the order of storing the elements
+				-- Non Synchronized
+	      -- Can hold null objects..as duplicate is allowed, we can store more than 1 null object
+	
+	ArrayList vs LinkedList 
+	LinkedList is faster than ArrayList interms of Manipulations(because no shifting is required).
+	         (Manipulation includes -- Insertion, Deletion, Updation)
+	
+	ArrayList is faster at the time of fetching the elements -- Index based accessing is allowed.		
+			 
+Queue -- elements are processed in FIFO 
+	    -- insertion -- at the end; Removal -- at the begin;
+			-- We have only ***PriorityQueue/LinkedList classes that implements a Queue interface.
+			
+			
+			**nOTE :Deque extends Queue; LinkedList implements Queue; which means indirectly it implements
+			      all the methods in the Queue and then the additional method defined in the Deque
+		
+      Queue<String> q1 = new PriorityQueue<String>();
+		  Queue<Integer> q = new LinkedList<>();
+			 
+      PriorityQueue -- Does not allow null values(https://howtodoinjava.com/java/collections/java-priorityqueue/)
+				            -- Works on basis of priorities
+										-- the default priority will be based on the key's values..
+				  
+	
+Java Comparator interface (https://www.geeksforgeeks.org/comparator-interface-java/)
+	                           (https://howtodoinjava.com/java/collections/java-comparator/)
+	
+	The compareTo() method compares two strings lexicographically. ... The method returns 0 if the string is equal to the other 
+	string. A value less than 0 is returned if the string is less than the other string (less characters) 
+	and a value greater than 0 if the string is greater than the other string (more characters).
+	
+	Note : Observe how the comparator is being written in exmaple.
+	
+	
+Dequeue -- Double ended Queue (https://www.geeksforgeeks.org/deque-interface-java-example/)
+        -- extends the Queue interface.
+        -- is implemented by ArrayDeque, LinkedList classes only.
+		    -- Allows insertion and deletion at both the ends of Queue
+		
+    Dequeue<String> dequeue = new ArrayDeque<String>();
+		Dequeue<String> dequeue = new LinkedList<String>();
+		
+		ArrayDeque
+		
+
+Set     -- Does not allow duplicate elements (similar to the mathematical sets)
+        -- No order is maintained
+	      -- Atmost 1 NULL Value is allowed.	
+	
+	Hashset -- Uses Hashing mechanism, to store the elements
+			-- Non synchronized
+			-- No order maintained(as it uses, the hashing concept)
+			
+	LinkedHash set -- extends HashSet class.
+				         -- non synchronized
+	               -- Order is maintained as uses the Linked List Data structure
+  TreeSet --  No order maintained
+	        --  But returns the output in the sorted manner.
+	
+	
+Map
+
+ Interface -- Map and SortedMap	
+ Classes -- HashMap, LinkedHashMap, TreeMap, HashTable(rarely used)
+ 
+ No duplicate keys are allowed -- If you try to insert the duplicate key, it will replace the element of the corresponding key
+ HashMap and LinkedHashMap allow null keys and values -- only one null key
+ 
+ A Map can't be traversed -- Needs to be converted into keySet() or entrySet()
+ 
+ HashMap -- not synchronized(No Thread safety)
+ HashTable -- synchronized(Thread safety)

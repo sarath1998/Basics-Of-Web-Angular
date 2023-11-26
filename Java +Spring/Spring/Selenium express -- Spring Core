@@ -1,0 +1,91 @@
+Simple Spring Framework
+
+The developer had to provide every setting
+How do we manage 
+
+
+BeanFactory interface --> Spring Configuration File(can be xml/java file.. where we define the beans)
+getBean method --> takes input: a string(i.e bean id) 
+                   will give the object that is mapped to this bean
+									 
+
+public static void main(String s[])
+{
+  BeanFactory factory = new XmlBeanFactory(new FileSystemResource("spring.xml"));  
+	Alien obj1 = (Alien)factory.getBean("alien");
+	obj1.code();
+ }
+ 
+ Spring.xml
+ <bean id="alien" class=Alien.class(Mention full classified path)/>
+ 
+Note: When Spring started in 2003(main aim was Dependency injection).. So initially BeanFactory was there.
+      BeanFactory does not require the file to be in the class Path unlike ****ClassPathXmlApplicationContext that is used
+			to create object for ***ApplicationContext interface. The file can be present at any path
+			
+Using ApplicationContext
+
+public static void main(String s[])
+{
+  ApplicationContext factory = new ClassPathXmlApplicationContext("spring.xml");  // ClassPathXmlApplicationContext is used to create
+  Alien obj1 = (Alien)factory.getBean("alien");                                      reference to ApplicationContext   
+	obj1.code();                                                     
+                                                             // spring.xml(Spring Configuration file), file must be present in the java folder here
+  Alien obj2 = (Alien)factory.getBean("alien");                 
+	obj2.code();                                              // By default, spring will follow the Singleton design pattern
+                                                            // hence the same object is returned by the spring  
+}  	
+
+Note:  factory.getBean --> will always have "Object" as return type. So, we need to downcast it to the specific type
+       Spring container is an area inside the JVM, that actually contains all the beans
+			 
+Bean scope: singleton vs prototype
+       --> Defined using the "scope" attribute in the bean tag.
+			 --> holds values singleton, prototype
+
+  singleton --> ****By default, every bean is a singleton scope. i.e, spring will create only one instance
+	              of the class, ****irrespective of the object used or not in the application.
+	
+		prototype --> **object will be created only on the user's request. Will create different objects unlike 
+		              singleton scope.
+									
+Eg: 
+In spring.xml ==== SpringBean Configuration file name
+<bean id="student" class="com.springStarter.Student" scope="prototype"/>
+
+public static void main(String s[])
+{
+  ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+	Student s = (Student)context.getBean("student");
+	Student s2 = (Student)context.getBean("student");
+}
+
+
+Student.java
+// constuctor
+public class Student
+{
+  public static int count = 0;
+	
+  public Student()
+  {
+	  System.out.println(++count);
+    System.out.println("Inside default constuctor");
+  }
+}
+
+
+Property Injection : constructor
+
+Autowire: Used to inject the dependencies which are of "Object"/"Reference" type
+          If we're using this means, we're telling spring that plz inject the required
+					beans if they're *****readily available(If not present, by that time just ignore).
+				 
+Can be achieved in 2 ways
+1. In Spring bean configuration file(XML) -- Attribute at bean level in which external objects needs to be injected.
+2. Using @Autowired annotation
+
+in XML: Autowiring is achieved using the keyword "autowire" as a attribute
+        autowire has 3 values: constuctor
+				                       byName
+															 byType 

@@ -1,0 +1,98 @@
+Spring MVC -- used to create the web application.
+From Java perspective, its the Servlet that handles the user requests. So, in Spring MVC the controller can be simulated as Servlet.
+
+In Spring MVC, 
+There is a concept called Front Controller, where every requests will reach to this controller, followed by to the specific controller.
+
+Front Controller -- will be given by Spring by default. Since everything in Java is a Object(i,e class), so the FrontController name
+is DispactcherServlet.java.
+
+Since Front Controller is also a servlet, we have to create an entry in the web.xml.
+Ideally, in web.xml 
+1. we register the servlet, and 
+2. also entry using the "servler-mapping" tag that binds the servlet and the requests its serve.
+(For servlet registering sample inside web.xml, can refer nrsp application web.xml file)
+
+Inside Web.xml
+
+<servlet>
+ <servlet-name>dad-frontController</servlet-name>
+ <servlet-class>org.springframework.web.servlet.DispactcherServlet</servlet-class>
+ <load-on-starup>1</load-on-starup>
+</servlet>
+
+<servler-mapping>
+  <servlet-name>dad-frontController</servlet-name>
+	<url-pattern>/home.com/*</url-pattern>
+</servler-mapping>
+
+
+
+While deploying the application, the spring framework expects the Srping configuration file(for eg:"beans.xml" used in sping-core tutorials) 
+with the similar name as having suffix with "-servlet.xml" inside the web-inf directory.
+
+Here: dad-frontController-servlet.xml
+
+Note: Unlike the spring-core(ApplicationContext), we will have a WebApplicationContext in Spring MVC.
+ApplicationContext is nothing but a Spring Container that will hold the object/beans.
+
+
+In case, if we want to change the DispactcherServlet config file from its default name, then use new parameter "contextConfigLocation"
+
+
+<servlet>
+ <servlet-name>dad-frontController</servlet-name>
+ <servlet-class>org.springframework.web.servlet.DispactcherServlet</servlet-class>
+ <init-param>
+    <param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/beans.xml</param-value>
+ </init-param>
+ 
+ <load-on-starup>1</load-on-starup>
+</servlet>
+
+<servler-mapping>
+  <servlet-name>dad-frontController</servlet-name>
+	<url-pattern>/home.com/*</url-pattern>
+</servler-mapping>
+
+
+
+ApplicationContext vs WebApplicationContext
+
+1.WebApplicationContext extends the ApplicationContext, but has more specific features w.r.t Web application perspective.
+2.Its not required to create and close WebApplicationContext manually. Spring MVC will automatically create and close the context
+on server start and shutdown. That's the reason, we do not have class containing any main() method + lines of code for creating the reference/new object of
+WebApplicationContext.
+
+Note: Using spring-core, we can create only standalone applications(Native applications), which requires to create the object
+for the Application Context inside the main class(Please refer spring core tutorials).
+
+3. So, in Spring MVC application, we can simply start writing the Controllers that serve the HTTP requests.
+Note: As everything in Java is an Object by default(i.e Java class), using @Controller over the Java class
+are termed as Controllers.
+
+
+
+@Controller vs @Component
+Both, these annotations serve the same purpose. It tells spring, that please create a object(bean) and have 
+it in your container.
+
+@RequestMapping
+can be used at method level or Class level
+Mentions, which sorts
+
+@ResponseBody --
+
+ViewResolver -- Used to link the view file with the controller.
+Ideally, As per Spring MVC Standards, a contoller will simply return the string (file name without any suffix and prefix).
+prefix -- path to the file 
+suffix -- file extension(say .jsp, .html etc.,)
+
+Spring MVC provides a Java class called "InternalViewResolver" that has the class variables
+prefix and suffix of string type.
+
+So, to use this resolver in our application, 
+1. Simply in the spring configuration file, create a bean tag similar and use the <property> tag and put the values to these.
+
+

@@ -1,0 +1,23 @@
+Devops --  Drawback in Agile model -- led to Devops
+		   In Agile model, the deveopment team was able to build the software
+		   very rapidly, through iterations of releases.
+		   But the operations team, did not achieve this and let to
+		   slow down the purpose of Agile model.
+		   
+		   So, to fill this gap, Devops came into play.
+		   
+		   
+		   combination of 2 words. (https://play.fresco.me/course/90/progress/topic/173/content/1101)
+           Development + Operation
+		   
+		   
+		   Its a practice where a single team manages
+		   entire application developement
+		   =Development, Testing and Deployement and Operations
+		   
+		   Stages in Devops
+		   Continuous Development
+					  Integration -- Jenkins -- Pull the latest code from GIT and produce a build(A build is a WAR/JAR file).
+		              Testing   -- Continuous Testing -- Testing frameworks
+		              Deployement -- 	
+		              Monitoring

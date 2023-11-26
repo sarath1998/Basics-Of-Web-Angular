@@ -1,0 +1,65 @@
+@Component("<manual name for the bean apart from default name>")
+@Scope("SingleTon or Prototype")
+@Controller -- write at the class level which encloses the requst mapping methods
+@RequestMapping(path="", produces={"application/json"}) -- this is common annotation for both the Rest and web applications.
+@RequestParam("<value of the name attribute given in the form for that feild>")
+
+In SpringBoot, by default all the views will be presnet under the below folder
+src/main/webapp/
+
+@ResponseBody -- the method is returning the data instead of view file name.
+So, to map the view name, then the @ResponseBody annotation should not be used on the @RequestMapping method as we want the view name
+@ResponseBody is mainly used for RestServices as in the REST we never return the Views instead we return only the data(i.e String type).
+So using this annotation, will inform the DispatcherServlet that do not serach for any viewname mentioned in the return stmt.
+
+
+
+
+By default, springboot will not support the JSP. So we want to use Tomcat Jasper jar.
+
+Application.properties
+SpringBoot by default gives this file. It is presnet in the resources folder
+This file is used to modify any existing configuration/ give new configuration to the springboot application
+For eg: To map the view name for a method instead of writing the entire file name with extension.. we can simply mention the file name alone.
+
+return "sample.jsp" -- no need
+return "sample" -- its enough -- for this we configure the prefix and suffix in the application.properties
+
+
+Ideally in the Rest API.. the request URL will be as follows
+localhost:8080/aliens/102
+localhost:8080/aliens/102 -- that means find an alien with id 102
+
+It will not contain any requestParameters i.e parameters defined after the question mark
+
+In Rest API, Parameters passed over the URL are treated as "PathVariables"
+and we use the @PathVariable annotation 
+for eg: @RequestMapping("/alien/{aid}")
+@PathVariable("aid")
+
+
+
+Consumes data -- Server accepts the data
+Produces Data -- Server returns the data
+
+
+
+@PutMapping
+@PostMapping
+@GetMapping
+@DeleteMapping
+
+
+For Spring to automatically convert the data to XML/JSON,
+
+1. we have to extend the JPA Repository
+2. RequestMapping methods should return the List<T> data.. so that spring will convert the list data to Json using Jackson Jar
+3. If not wanted to convert, then leave the return type as String
+
+
+Note: If the controller is defined as @RestController, then there is no need to use the @ResponseBody annotation at every 
+requestMapping method
+
+POST VS PUT
+Put -- Update if the data exists
+       Create a new record if not exists

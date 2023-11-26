@@ -1,0 +1,178 @@
+
+SQL Queries
+
+
+DBMS -- is a software responsible for the management(creation, retreival, updation) of database.
+RDBMS -- Relational Database Management System. 
+
+RDBMS VS DBMS -- RDBMS stores the data in the form of collection of tables
+              -- relation will be defined between the tables based on the common columns.
+
+Table -- A table is a organized collection of data stored in the form of rows and columns.
+      --  Columns -- fields; Rows -- Records.			  
+
+DDL -- CREATE, DROP, TRUNCATE, RENAME and ALTER.
+
+CREATE TABLE <TABLE_NAME>
+(
+  COL1 DATA_TYPE [Constraint],
+  ....
+)
+
+CREATE TABLE <TABLE_NAME> AS
+(SELECT COL1, COL2, COL3 ...
+ FROM <tABLE2>
+ ); -- the resultant table will have same type of columns as in the table2,
+       and this will also load the data into the new table.
+	
+	-- If columns alone is needed in the outer table, then put the below condition
+	-- in where clause where 1=2; -- As this is false, then no data comes as a result only columns will be coming.
+
+DML --  INSERT, UPDATE and DELETE.
+
+Why truncate is a DDL not a DML (https://stackoverflow.com/questions/26059855/why-is-truncate-a-ddl-statement)
+as it behaves similar to DELETE (example available below)
+-- Resets the identity column which means by redefining the table.
+-- Does not have any where clause, if observed the where clause is only available with the DML commands alone
+
+Find nth Highest salary
+SELECT name, salary 
+FROM #Employee e1 
+WHERE N-1 = (SELECT COUNT(DISTINCT salary) 
+             FROM #Employee e2 
+			       WHERE e2.salary > e1.salary)
+
+JOINS
+left outer joins
+right outer joins
+full outer join
+inner join
+
+Group by
+
+Aggregate Functions -- SUM, COUNT, MIN, MAX, AVG
+
+Constraints -- NOT NULL, CHECK, DEFAULT, UNIQUE, INDEX, PRIMARY KEY, FOREIGN KEY
+NOT NULL -- The field is not allowed to have NULL values
+CHECK -- Verifies that all values in a field satisfy a condition
+DEFAULT -- 
+UNIQUE -- each row should have a different value for the field
+       -- Can be multiple unique Constraints
+	   -- Can be a single col, or a group of cols such that the combination should be unique
+	   -- Any of the column under unique constraint can have a null value
+	   
+Eg : CREATE TABLE Students(
+     ID INT NOT NULL UNIQUE,
+	 Name VARCHAR(255)
+	 );
+	 
+	 CREATE TABLE Students(
+     ID INT NOT NULL,
+	 LastName VARCHAR(255),
+	 FirstName VARCHAR(255),
+	 Constraint PK_STUDENT UNIQUE(ID, FirstName)  // Constraint Constraint_Name <Constraint>(Col1, Col2...)
+	 );
+
+
+PRIMARY KEY -- UNIQUE + NOT NULL
+            -- Only 1 primary key is allowed
+
+Eg : CREATE TABLE Students(
+     ID INT NOT NULL,
+	 Name VARCHAR(255),
+	 PRIMARY KEY(ID));
+
+    CREATE TABLE Students(
+     ID INT NOT NULL,
+	 LastName VARCHAR(255),   -- In this case, either the ID or FirstName should not have a NULL entry
+	 FirstName VARCHAR(255),
+	 Constraint PK_STUDENT PRIMARY KEY(ID, FirstName)  // Constraint Constraint_Name <Constraint>(Col1, Col2...)
+	 );
+
+SubQuery -- Correlated & Non-Correlated
+            
+UNION, MINUS, INTERSECT -- Must have same no of columns
+                        -- Must also have similar data types
+						-- Columns in each select stmt should necessarily have the same order
+						
+DROP VS TRUNCATE VS DELETE(https://learnsql.com/blog/difference-between-truncate-delete-and-drop-table-in-sql/)
+
+DELETE -- Removes all the data or even fewer records in a table based on condition in where clause
+       -- DML command; Can be rolled back(ROLLBACK)
+	   -- Process: 1) A record is locked before deleting
+	               2) Maintains the transaction log, so its slower than TRUNCATE.
+	   --   DELETE also keeps the auto-increment ID in the table. If you remove the last record in the table 
+		    with ID=20 and then add a new record, this record will have ID=21 – even though the record immediately 
+			before it will be ID=19.
+				   
+	   -- Eg: DELETE FROM <Table_name>;
+	          DELETE FROM <Table_name>
+		      WHERE <condition>;
+
+TRUNCATE -- Removes all the tuples in one go
+         -- Does not contain where clause(Unlike DELETE)
+		 -- DDL command; Can not be rolled back;
+		 -- TRUNCATE TABLE locks the whole table to remove data from a table; 
+		    thus, this command also uses less transaction space than DELETE.
+		 -- Resets the table auto-increment value to the starting value (usually 1). 
+		    If you add a record after truncating the table, it will have ID=1.
+		 
+V$Locked_Object -- 
+SELECT B.Owner, B.Object_Name, A.Oracle_Username, A.OS_User_Name  
+FROM V$Locked_Object A, All_Objects B
+WHERE A.Object_ID = B.Object_ID
+
+Does the SQL View exist if the table is dropped from the database?
+
+Answer: Yes, in Oracle, the SQL VIEW continues to exist even after one of the tables 
+        (that the SQL VIEW is based on) is dropped from the database. However, if you 
+		 try to query the SQL VIEW after the table has been dropped, 
+		 you will receive a message indicating that the SQL VIEW has errors.
+        If you recreate the table (the table that you had dropped), the SQL VIEW will again be fine.
+
+
+COUNT() --  the COUNT function will only count the records 
+            where the expression is NOT NULL in COUNT(expression)
+
+count(*) vs count(1) --  the COUNT function will return the same results regardless of what NOT NULL field(s) 
+		                 you include as the COUNT function parameters (ie: within the parentheses), 
+			             you can use COUNT(1) to get better performance. 
+			             Now the database engine will not have to fetch any data fields, instead it 
+			              will just retrieve the integer value of 1.
+			
+
+NVL, DECODE, INLINE SQL(Refer INI.STRUTS2, WPI1 screen excel report)
+
+
+LIMIT + OFFSET -- Limit will fetch the no of records that are mentioned.
+                   LIMIT 10 -- will fetch the 10 records, but based on order by(exp) asc|desc
+				               either the highest or lowest
+			   OFFSET -- the mentioned count of records will be ignored from the resultant set
+				   LIMIT 10 OFFSET 3 -- This will ignore the first 3 results even tough
+				                        they satisfy the condition and return the next 10 records
+										
+   
+	Oracle SQL has LIMIT keyword but not the TOP keyword
+
+Views -- a virtual table that does not physically exist. 
+         Rather, it is created by a SQL statement that joins one or more tables.
+		 
+		 CREATE VIEW view_name AS
+		  SELECT columns
+		  FROM tables
+		  [WHERE conditions];
+		  
+		  DROP VIEW view_name; -- Drops the view
+		  
+Can you update the data in a SQL VIEW?
+
+A VIEW in SQL is created by joining one or more tables. When you update record(s) in a view, 
+it updates the records in the underlying tables that make up the SQL View.
+So, yes, you can update the data in a SQL VIEW providing you have the proper privileges 
+to the underlying SQL tables.  
+
+MVC means ?
+
+Angular JS -- $scope? directives?
+Bootstrap
+

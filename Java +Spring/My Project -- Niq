@@ -1,0 +1,40 @@
+NRSP - New RMS Scanning Platform
+
+    
+Nielsen -- broadly 2 division
+            Media -- Audience Measurement -- Results will be generated based on the Audience response
+			Connect -- Sales Measurement
+					   can be done in 2 ways on the basis of source
+			           1) RMS  -- Retailer Measuring System
+					           -- Here retailer's data will be collected.
+					           -- Performs Data collection + Analysis + Finally end result
+			           2) NCPS
+
+
+Nielsen database -- contains info on the product sales. 
+					divided in 4 dimentsion
+				
+				1) Prodcuts
+				2) Markets
+				3) Periods
+				4) Facts
+
+CIP Components
+
+1) OGRDS
+2) MADRAS
+3) SIRVAL
+4) ECLIPSE
+
+5) NRSP -- All the above 1 to 4 act as inputs for NRSP
+			
+5 stages in when Production launched in NRSP
+
+Product Flow/Reolution 
+Market Flow/Resolution
+Aggregation -- 
+Final Inspection
+Publishing
+
+			
+items -- Segments -- Hierarchy

@@ -1,0 +1,277 @@
+Real life example for Multi tasking and Multi Threading
+
+Suppose you are using two tasks at a time on the computer, be it using Microsoft Word and listening to music. These two tasks are called processes. 
+So you start typing in Word and at the same time start music app, this is called multitasking. Now you committed a mistake in a Word and spell check shows exception, 
+this means Word is a process that is broken down into sub-processes. Now if a machine is ****dual-core then one process or task is been handled by one core and music is been handled 
+by another core. 
+
+In the above example, we come across both multiprocessing and multithreading. These are somehow indirectly used to achieve multitasking. 
+In this way the ****mechanism of dividing the tasks is called multithreading in which every process or task is called by a thread. Where a thread is 
+responsible for when to execute, when to stop and how long to be in a waiting state. Hence, a thread is the smallest unit of processing whereas multitasking 
+is a process of executing multiple tasks at a time
+
+Multi tasking --  Microsoft word + Listening to Music
+Here each task -- a process
+
+Now take only 1 process -- Microsoft word
+Inside which 
+1. Display the typed content -- One thread
+2. Spell check --- another thread
+
+So, a thread is a unit of a process
+
+Note: In every java application, there is always one thread i.e main thread.
+
+
+Advantages/Uses of Thread
+
+1. In a multi-core computer, with multiple threads we can use all the cores by running all the threads a time
+
+2. Perform Async task
+(In android apps, lets take Amazon, 
+One thread:
+When a button is clicked that will interact with server for response, then during that turn around time, the application
+will get freeze instead)
+Multiple Threads:
+Then the main thread will be involved with the user and then a new thread will be assinged with the task of getting the
+response from the server.
+
+3. Web application
+Servelets : Assume the same servlet recerives the request from 5 different users then the server would create
+5 different threads to send the response
+
+4. Games
+
+
+
+How to create Thread
+
+"Thread" -- Its a Java class
+1. Any class should extend Thread --  inorder to become a Thread class
+2. write your logic inside the run() inside the class that extends the Thread class
+3. Invoke start() using the above class object
+
+start() -- Invoking this method will trigger the run() 
+
+See below program
+
+eg: 
+class A extends Thread  // A class extends Thread class, by which class "A" becomes a thread now.
+{                                  
+  int[] val = {6,7,8,9,3};
+	public void run()
+	{
+	  for (int i=0; i<5; i++)
+		{
+		  values[i] = values[i]*2;
+		}
+	}
+}
+
+class ThreadDemo
+{
+  public static void main(String str[])
+	{
+	  A t1 = new A();  
+		t1.start(); // This will invoke the start method.
+	}
+}
+
+
+Now to invoke this, 
+Create a new object for this class
+then hit the run method directly(i.e, In the above example, t1.run()) with the reference variable for this object -- But this will run only one single thread(i.e main thread)
+But to create a new thread and execute the logic(to achieve parellelism, then we have to invoke the start()) -- t1.start()
+
+Creating Threads using Runnable interface
+
+Why Runnable when Thread class can be used to create the Threads?
+
+Java does not allow Multiple Ingeritance.
+SO, if "Thread" class is extended, then no other class can be extended.
+Therefore, implementing the "Runnable" interface will allow to extend another class if needed
+
+Also, Threads created using Runnable interface will have only 1 instance created which is shared among them.
+But when threads are created extending the "Thread class", then every time new object is created.
+
+See the link -- https://manikandanmv.wordpress.com/tag/extends-thread-vs-implements-runnable/
+
+When to use Runnable vs When to use Thread class?
+
+https://manikandanmv.wordpress.com/tag/extends-thread-vs-implements-runnable/#:~:text=When%20to%20use%20Runnable%3F
+
+
+eg: 
+class MyThread implements Runnable  // Thread class is extends
+{
+  int[] val = {6,7,8,9,3};
+	public void run()
+	{
+	  for (int i=0; i<5; i++)
+		{
+		  values[i] = values[i]*2;
+		}
+	}
+}
+
+class ThreadDemo
+{
+  public static void main(String str[])
+	{
+	  MyThread myThreadObj = new MyThread();
+		
+		Thread t1 = new Thread(myThreadObj);            // Created the Thread class obj separately and passed the above class instance variable
+		t1.start();                                     // This will invoke the start method.
+	}
+}
+		
+
+nOTE: 
+1. start() is an instance method of the Thread class. So, it can be invoked only using the Thread class instance variable.
+   So, we can not call the start method directly with the instance of the class implementing the Runnable interface.
+2. Hence, The thread class constructor is overloaded(constr overloading), which will
+   accept the object of the class that implements the Runnable interface (line no : 111)
+3. Then again invoke the start() with the Thread clas instance variable(line no: 112)
+4. Since there is only single class, the theread advantage can not be really understood. Plz refer the below examples
+
+
+
+Program-1: 2 Classes that extends Thread class
+
+class HelloClass extends Thread
+{
+  public void run()
+	{
+	  for (int i=0; i<5; i++)
+		{
+		 System.out.println("Hello");
+		}
+	}
+}
+
+class HiClass extends Thread
+{
+  public void run()
+	{
+	  for (int i=0; i<5; i++)
+		{
+		  System.out.println("Hi");
+		}
+	}
+}
+
+
+class MainClass 
+{
+  public static void main(String str[])
+	{
+	  HelloClass hello = new HelloClass();
+	  HiClass hi = new HiClass();
+		hello.start();
+		Hi.start();
+	}
+}
+
+Output:
+Hello
+Hi
+Hi
+Hello
+Hello
+Hi
+Hi
+Hello
+Hello
+
+Observations:
+1. It's not enough alone to extend a class by Thread, instead the the reference variable should invoke the start() as well.
+2. There should be some definition given to run()
+3. The above o/p can vary everytime
+ 3.1 depending on the thread that reaches the CPU first,
+ 3.2 others like, thread priority, Scheduler settings (for eg: if both the threads(with same priority) hit the cpu, 
+ based on the scheduler random settings, that is executed first)
+ 
+ 
+
+Program-2: Classes that will implement Runnable interface
+
+Program-1: 2 Classes that extends Thread class
+
+class HelloClass implements Runnable
+{
+  public void run()
+	{
+	  for (int i=0; i<5; i++)
+		{
+		 System.out.println("Hello");
+		}
+	}
+}
+
+class HiClass implements Runnable
+{
+  public void run()
+	{
+	  for (int i=0; i<5; i++)
+		{
+		  System.out.println("Hi");
+		}
+	}
+}
+
+
+class MainClass 
+{
+  public static void main(String str[])
+	{
+	  HelloClass hello = new HelloClass();
+	  HiClass hi = new HiClass();
+		
+		Thread t1 = new Thread(hello);
+		Thread t2 = new Thread(hi);
+		hello.start();
+		Hi.start();
+	}
+}
+
+
+The above code can be optimised, as we have ****Lambda expessions for Functional interface from JAVA8
+
+class MainClass 
+{
+  public static void main(String str[])
+	{
+		Thread t1 = new Thread(() -> 
+		     {
+				   for (int i=0; i<5; i++)
+		       {
+		         System.out.println("Hello");
+		       }
+		     });
+		Thread t2 = new Thread(() -> 
+		     {
+						for (int i=0; i<5; i++)
+		        {
+		          System.out.println("Hi");
+		        }
+		     });
+		t1.start();
+		t2.start();
+	}
+}
+
+Ref: https://www.youtube.com/playlist?list=PLsyeobzWxl7rmuFYRpkqLanwoG4pQQ7oW __ Telusko Multi Threading Playlist
+
+Threads
+1. Using Thread class
+2. Using Runnable interface
+3. Thread vs Runnable interface
+4. Join
+5. Sychronised keyword
+6. Thread States -- https://www.javatpoint.com/thread-states-in-java
+7. When does a thread goes to waiting state? 
+
+Ans: Say a thread A expects a value from Queue. But Queue is empty, then Thread A goes to waiting state. Soon, the other thread B initializes the queue 
+     and then notify the thread A, then thread again moves from Waiting to Runnable and then once memory is available, Runnable to Running.  
+
+8. What is meant by Thread safe?		 -- https://stackoverflow.com/questions/2033879/what-does-threadsafe-mean#:~:text=has%20a%20nice%20blog%20post%20entitled

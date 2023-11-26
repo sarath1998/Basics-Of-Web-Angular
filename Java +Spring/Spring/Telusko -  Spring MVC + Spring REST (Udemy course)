@@ -1,0 +1,78 @@
+Spring MVC
+
+What is a controller -- which accepts the client request
+
+Spring MVC, has a new concept **"Front controller" -- As the name said, any request that comes to the server
+                                                      will be first addressed by Front Cotroller
+
+Based on the type of the service it requests for -- The front controller will map the request to that controller
+
+Happily, Springboot will provide the Front controller by default known as "Dispatcher Servlet"
+However, Dispatcher servlet does not know to which controller it needs to map the request. So, we need to maintain a separate
+config file to mention the mapping between the request incoming and the target controller to invoke
+
+**Tomacat does not understand the JSP.. So, we use ** Jasper JAR for this.
+
+
+@Controller --  Class level, Annotation, which makes the Java class as a controller
+@RequestMapping -- Method level/Class level, which maps the request to the particular class
+@Component
+
+
+DSL -  Domain Specific Language
+must start with findBy
+@Query
+
+
+RESTFul Webservice -- Representation Stateful Webservice
+Transferring the current state of the object
+Unlike the normal web application, here we use the nouns...instead of verbs
+i.e
+In normal web application, for every form we use action attribute whose value will be getServersList
+unlike the REST application, we simply mention the nouns "Serverlist"
+
+So, the URI in Web vs REST application like
+www.google.com?getServersList  vs www.google.com/serverList
+
+In REST Terminology
+The term "Resource" ---> Data on the sever
+
+
+@ResponseBody -- Annotation at method level, which tells that the method is returning the Data instead of the View
+              -- So, for every method that returns only data(i.e for REST), this annotation is required.
+							-- Useful when the class is a normal MVC Controller i.e, @Controller at class level. 
+						     (Assume a class that contains the methods to serve the MVC requests + Rest requests,
+                  then for the requests, we use the @ResponseBody annotation on the method)								 
+							
+							
+@RestController								
+When there is a class that only serves the REST methods, then it is waste to mention @ResponseBody annotation
+on top of every method. So, to overcome this, at class level we can simply put @RestController annotation							
+
+@PathVariable
+
+JACKSON Dependency --  Converts the Java data into JSON automatically. (SpringBoot provides internally)
+
+
+Headers in a REST request -- Helps in putting restriction at the time of fetching the data(Client side)
+                          -- We mention what the client requires in the response
+                             Eg: If we want only the XML format, in the response then
+                                 in Headers we can mention some thing like
+                                 "Accept" = application/xml
+																 "Content-type" = application/json
+
+
+Server side restrictions -- What type of data format, the server will send back for the client request
+                            @Produces -- this attribute will help to restrict the format
+												 -- We can also inform, what data format the server will accepts
+												  Eg: In post request, what type of data server will accepts
+													
+
+@RequestBody : vice-versa of @ResponseBody
+               Used to convert the client type of data format to JAVA Object i.e from JSON/XML to JAVA Object
+							 
+
+
+Note: All the client side restrictions are posed at the Client machine i.e in postman
+where as the Server side restriction are posed in the JAVA methods(i.e endpoints)
+

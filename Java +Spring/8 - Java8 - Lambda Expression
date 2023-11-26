@@ -1,0 +1,1433 @@
+Lamda Expression: An anonymous Function
+
+An anonymous function has 3 attributes:
+
+1. No method name
+2. No return type
+3. No access Modifier
+
+
+For eg:
+
+public void m1()
+{
+  sysout("Example1");
+}
+
+Lambda exp:
+
+1. No method name -- remove the word "m1"
+2. No return type -- remove the word "void"
+3. No access Modifier -- remove the word "public"
+
+
+The respective Lambda expression is as follows
+
+() --> {sysout("Example1")};
+
+
+Note:  "-->" is a sysmbol that is used to represent the Lambda expression.
+LHS of --> represents the method declaration or the method signature
+RHS of --> represents the content of the method.. simply copy it.
+
+Eg2: Method with PARAMS + RETURN type
+
+public int add2Numbers(int a, int b)
+{
+   return a+b;
+}
+
+Lambda exp:
+
+1. No method name -- remove the word "add2Numbers"
+2. No return type -- remove the word "int"
+3. No access Modifier -- remove the word "public"
+
+
+(int a, int b) --> {return a+b};
+
+Note: When there only 1 line of code in the method body, then we can simply write the body without any braces..
+
+4. No braces for the method body i.e braces are OPTIONAL
+
+So, after re-writing the above code:
+
+(int a, int b) --> return a+b;
+
+Note: If COMPILER can guess the datatype of the arguments(if any passed to the method) i.e "type Inference", then 
+
+5. No data types explicit need to be mentioned. Just mention the variables.
+
+So, after re-writing the above code:
+
+(a, b) --> return a+b;
+
+Note: When there is only 1 line of code in the method which returns the value i.e only statement prefixed with the return keyword.
+
+(a, b) --> a+b;
+
+6. When only 1 argument present in the method signature/method declaration, then no need of braces in the LHS side.
+
+public int findLengthOfString(String str)
+{
+	return str.length();
+} 
+
+Now LAMBDA exp:
+
+str --> str.length();
+
+
+Eg3: Method with PARAMS + return type + Multiple Lines of Code
+
+public int trimAndFindLengthOfString(String str)
+{
+	str = str.trim();
+	return str.length();
+}
+
+
+LAMBDA exp:
+
+(String str) --> {
+	               str.trim();
+                   return str.length();
+				 };
+				 
+				 
+
+
+Functional Interface :
+
+An interface with 
+
+1. Only 1 abstract method.(Must hold an abstract method)
+2. Can hold any	number of static or any number of default methods
+
+@FunctionalInterface -- Annotation is used to represent an interface as an Functional interface.
+
+Eg1:
+
+@FunctionalInterface
+interface If1
+{
+	public void method1();
+	
+	default int defaultMethod1()
+	{
+		sysout("Inside the Default Method1");
+	}
+	
+	public static double staticMethod1()
+	{
+		sysout("Inside the static Method1");
+	}
+}
+
+Eg 2: Functional Interface + INHERTIANCE
+
+@FunctionalInterface
+interface If1
+{
+	public void m1();
+}
+
+@FunctionalInterface
+interface If2 extends If1
+{
+	
+}
+
+
+O/p -- Code gets compiled.
+
+Below egs are not the Functional Interfaces
+
+Eg 3:
+
+@FunctionalInterface
+interface If1
+{
+	
+}
+
+O/p -- Compiler time error bcz there is no abstract method declared as Funtional Interface exprects 1 abstract method.
+
+Eg 4:
+
+@FunctionalInterface
+interface If2
+{
+	public void method1();
+	public void method2();
+}
+
+O/p -- Compile time erroras the user mentioned the annotation but declared 2 abstract methods against the Funtional Interface concept.
+
+
+
+Now Let's see below how to convert the conventioal Interface with only 1 method is 
+
+converted to Lambda expression.
+
+
+Regular version of Code:
+
+Eg 1:
+
+interface If1
+{
+	public void m1();
+}
+class C1 implements If1
+{
+	public void m1()
+	{
+		sysout("Inside the m1 body -- Regaular conventional code");
+	}
+}
+
+class C3
+{
+	public static void main(String s[])
+	{
+		If1 if1 = new C1();
+		if1.m1();
+	}
+}
+
+
+O/p -- Inside the m1 bode -- Regular conventioanl code
+
+
+
+Now, re-write the above code using the Functional interface..
+
+Since If1 is a Functional interface have only 1 method declared, we can crisp the code using the Lamdba expression.
+Therefore, we define the implementation for the abstract method and then create an instance in the same line
+
+
+interface If1
+{
+	public void m1();
+}
+class C3
+{
+	If1 if1 = () --> sysout("Inside the m1 body -- Using the Functioal Interface");
+	if1.m1(); // Invoking the m1 is explicitly needs to be done by the user.
+}
+
+To observe, 
+
+i) No explicit seperate class for the interface implementation.
+ii) Line 216, lo RHS side of contains the LAMDA expression used for providing the method definition as follows :
+
+     1. No method name -- removed m1
+	 2. No return type -- remove void
+	 3. No access modifier -- removed public
+	 4. Only 1 line of code in the method body -- No braces provided in the RHS.
+     5. The --> sysmbol is used to represent a LAMBDA expression. 
+
+iii)  new -- new keyword not needed.. as compiler can understand that we're using the Lambda expression.
+iv) Method invocation ki Lamda expression ki sambandam ledu.. Method invocation needs to be done similarly as in the regular code.
+
+
+ Anonymous Inner Class
+ 
+ 
+ We know, we can not create an object for an interface directly. Instead, we provide the implementation class
+ and then create an instance for it. In a conventional way, this class will be having some name.. for eg:
+  
+ Eg 1: 
+ 
+   interface Interface1 
+   {
+	   public void method1();
+   }
+ 
+   class A implements Interface1
+   {
+	   public void method1()
+	   {
+		   // some code
+	   }
+   }
+ class B 
+ {
+	 public static void main(String s[])
+	 {
+		A obj1 = new A();
+		obj1.method1();
+	 }
+ }
+ 
+ A -- Is the name of the class, that is built only for implementing the interface Interface1.
+ Line 294, creates the instance of this class and then invokes the method1().
+ 
+ 
+ Assume, if the implementing class will be only used once across the code.. the regular way of code for implementing the interface
+ will have lots of lines of code..
+ 
+ Hence, Java has introduced the concept of Anonymous Inner class.. which is used in the scenerios  you have to override a method of abstract class or interface
+ 
+ Anonymouus --  No name
+
+ 
+ So, the above example can be re-written as below using the ANONYMOUS INNER CLASS as below :
+ 
+ 
+ interface Interface1
+ {
+	 public void method1();
+ }
+ class B
+ {
+	 public static void main(String s[])
+	 {
+		 Interface1 if1 = new Interface1()
+		 {
+			public void method1()
+			{
+				sysout("Anonymoous Inner class -- Inside the method1");
+			}	
+		 };
+		 
+		 if1.method1();
+	 }
+ }
+ 
+ 
+ o/p -- Anonymous Inner class -- Inside the method1
+ 
+ 
+ To Observe,
+ 
+ 
+ i) Line 314 lo new Interface1() ani raasi and then braces open chesaam.. which needs to be understand as below:
+ 
+ Block of the code from 316 to 319.. is like the class definition enclosed b/w the braces 315 and 320.
+ 
+ new Interface1() + the class definition when read combinely together.. it looks like
+ 
+ "A new instance of a class is being CREATED using the new keyword whose definition is enclosed
+ within the {} brances and assigned to the reference variable if1."
+ 
+  Line 293 "}" is the end of the statement(which begin 287).. As in the JAVA Standards, the statements must have a semi-colon.. so we put a semi-colon there.
+ 
+ ii) As any non-static method to be invoked requires a object/instance to invoke its method, 
+     in line 322, if1 is the reference variable used to invoke method1.
+
+iii) As there is no explicit class name for, hence we say this code as Anonymous Inner class. 
+ 
+ 
+ Eg 2: Anonymous Inner class Demo example by using in-built Runnable Interface.. 
+ 
+   class A implements Runnable
+  {
+	  public void run()
+	  {
+		  sysout("Runnable interface");
+		  for (int i=0; i<10; i++)
+		  {
+			  sysout("Child Thread inside the Runnable Interface");
+		  }	  
+	  }
+  }
+  
+  class B
+  {
+	  public static void main(String s[])
+	  {
+		  Runnable r1 = new A();
+		  Thread t1 = new Thread(r1);
+		  t1.start();
+		  for (int i-0; i<10; i++)
+		  {
+			  sysout("Main Thread");
+		  }
+		  
+	  }
+  }
+ 
+ 
+ After re-wrting the above code using the ANONYMOUS INNER CLASS as below:
+ 
+ 
+ class B
+ {
+	public static void main(String st[])
+	{
+		Runnable r1 = new Runnable()
+		{
+			public void run()
+			{
+				sysout("Inside the run() -- ANONYMOUS INNER CLASS");
+			}			
+		};
+		
+		Thread t1 = new Thread(r1);
+		t1.start(); 
+	}	
+ }
+ 
+ O/p -- Inside the run() -- ANONYMOUS INNER CLASS
+ 
+ 
+ To Observe, 
+ 
+ i) Eleminated the use of the explicit class A.
+ ii) Used the Anonymous inner class concept to provide the implementation for the run() method.
+
+ 
+ 
+We can still further reduce the code as below, by simply putting the class definition(that contains the run() definition) instead of 
+the referece variable.
+
+public class B
+{
+	public static void main(String st[])
+	{
+		Thread t1 = new Thread(new Runnable()
+		{
+			public void run()
+			{
+				System.out.println("Inside the run() -- ANONYMOUS INNER CLASS");
+			}			
+		});
+		t1.start(); 
+	}	
+} 
+ 
+
+O/p  -- Inside the run() -- ANONYMOUS INNER CLASS
+ 
+ 
+ 
+ANONYMOUS INNER CLASS + LAMDBA EXPRESSION
+
+All above, we observed how & why to use the Anonymous Inner class.. 
+We also, learnt the LABDA expression concept.. which is an Anonymous function.
+
+Let's combine both of them.
+
+
+There is only 1 scenario, where an Anonymous Inner class can convert into Lamda expression.
+As we know, the pre-requisite for a LAMBDA expression is a Functional Interface/SAM.
+& a Functional Interface -- will have only 1 method to ovveride.
+
+
+ So An Anonymous Inner class can be converted to Lamda expression, only if the implementing interface is a Functional Interface.
+
+For eg: Take previous example implementing the Runnable interface, which has the run() to be override.
+If observed carefully, Runnable interface is a SAM and we can apply the LAMDA expression on it.
+
+Since, we already applied the Annonymous class .. lets still reduce the lines of code further
+by using the LAMBDA expression.
+
+Eg 1:
+
+ANONYMOUS INNER CLASS
+ 
+ public class B
+ {
+	public static void main(String st[])
+	{
+		Runnable r1 = new Runnable()
+		{
+			public void run()
+			{
+				sysout("Inside the run() -- ANONYMOUS INNER CLASS");
+			}			
+		};
+		
+		Thread t1 = new Thread(r1);
+		t1.start(); 
+	}	
+ }
+ 
+ 
+After re-writing the code with the LAMBDA expression, 
+
+
+ public class B
+ {
+	 public static void main(String s[])
+	 {
+		 Runnable r1 = () -> sysout("Inside the run() -- LAMBA expression upgraded from Anonymous Inner class.");
+		 Thread t1 = new Thread(t1);
+		 t1.start();
+	 }
+ }
+ 
+ To Observe, 
+ 1. Removed all the lines of code starting from the new key word till before () in line 435.. since the Runnable is a Functional interface..
+    this way we remove all the boilerplate code .. Note the compiler can understand that,
+      1.1 the user is creating an object
+      1.2 Also, the lamdba expression is a method definition for the run() 	  
+      
+
+Further improvising the code as below:
+
+public class B
+{
+	public static void main(String args[])
+	{
+		Thread t1 = new Thread(() -> {
+										sysout("Inside the run() -- LAMDBA expression upgraded from Anonymous Inner class.");
+										for (int i=0; i<10; i++)
+											sysout("Child Thread");
+									  }
+									  );
+										
+		t1.start();
+		for (int i=0; i<10; i++)
+			sysout("Main Thread");
+	}
+}
+ 
+ To Observe,
+ Runnable reference variable badulu direct ga definition ni pass chesam.. which is like anonymous class instance
+ with LAMBDA expression used to provide the method definition.
+ 
+ 
+ Java 1.8 has provided below Pre-defined Functional interfaces having their methods declared inside them.
+ 
+ 1. Predicate
+ 2. Function
+ 3. Consumer
+ 4. Supplier
+ 
+ 
+ Pkg name : java.util.function;
+ 
+ Predicate 
+ 
+     -- In maths, the predicate is a function that performs some mathematical operation and return either true/false(Boolean value)
+     -- Coming to Java, Predicate interface also contains an abstract boolean return type method with name "test".. since its return type boolean conveys
+	 the similar purpose of it in both Java & Mathematics.
+	 
+	 -- Looks like as below :
+	 
+	 interface Predicate<T>
+	 {
+		 boolean test(T k);
+	 }
+		
+		Here T stands for the type of the element 'K'
+		
+		
+ Note: It's the user responsibility to define what to be tested and how to be tested.. em condition check cheyyalo adi raayatam anedi user responsibility.
+       So, we understood that a Predicate is used to perform/evaluate a boolean check. Let's start coding.
+	   Since, its a Functional interface, the most optimal level to which we can write the code is the LAMDA expression.
+ 
+ So, let's firstly define the method and then convert into the Lamda expression.
+ 
+ Note: method definition vidanam ... Anonymous class use cheyya galam.. 
+ for eg: refer Line 431. Similarly, below function code akkada replace cheyyadame
+ 
+ 
+ For eg: User want's to test if the input(Integer type) is > 100
+ 
+ public boolean Test(Intger k)
+ {
+	 if (k > 100)
+		 return true;
+	 
+	 return false;
+ }
+ 
+Now, re-wrting the above code using the Lamda expression..
+
+
+(Integer k) -> {
+					if (k > 100)
+						return true;
+					
+					return false;
+			   };
+ 
+ Now, we can further simplify the code as below:
+ 
+ k -> k > 100;
+ 
+ To observe, 
+ 
+ i) LHS has only 1 argument for test().. so need of braces, and the type of the element
+ ii) Since > is conditional op which will return a boolean value
+ 
+ 
+ So, in actual code, below is how a Predicate is defined...
+ 
+ Predicate<Integer> P = k -> k > 100;
+ 
+ Now the above line defined the code for the test().. note that that needs to explicitly triggered..
+ 
+ Boolean b1 = P.test(100);
+ sysout(b1);
+ 
+ To observe,
+ 
+ 1. LHS side lo Functional interface type use chesam.. (Paina egs lo kooda LHS lo aalana use chesam)
+ 
+ So, this way we can define as many Boolean evaluate conditions using Predicates in a single line of code..
+ 
+ For eg:
+ 
+ Predicate<Integer> P = k -> k > 100;
+ Predicate<String> P2 = k -> k.length() > 10; // Checking the string length is > 10
+ 
+ Boolean b1 = P.test(20);
+ Boolean b2 = P2.test("Sarath");
+ 
+ sysout("b1: "+b1+" ,"+b2);
+ 
+ 
+ class PredicateDemo
+ {
+	 public static void main(String args[])
+	 {
+		Predicate<Integer> P = k -> k > 100;
+		Predicate<String> P2 = k -> k.length() > 10; // Checking the string length is > 10
+ 
+		Boolean b1 = P.test(20);
+		Boolean b2 = P2.test("Sarath");
+ 
+		sysout("b1: "+b1+" ,"+b2);
+ 
+	 }
+ }
+ 
+ O/p -- b1: false ,b2:false
+
+ 
+ PREDICATE JOINING
+ 
+ There are some default methods defined in the Predicate interface which are used to combine 2 or more different
+ Predicate operations. They are :
+ 
+ 1. and
+ 2. or
+ 3. negate
+ 
+ For eg:
+ 
+ P1 - Given number is > 10?
+ P2 - Is a even number ?
+ 
+ Now we can combine above two predicates as below:
+ 
+ Predicate<Integer> p3 = p1.and(p2)
+ Predicate<Integer> p3 = p1.or(p2)
+ 
+ 
+ Java program as below:
+ 
+ Eg 1:
+ class PredicateDemo
+{	 
+	 public void method1(Predicate<Integer> P1, int[]x)
+	 {
+		 for (Integer i: x)
+		 {
+			 if (P1.test(i)) //Here we're invoking the test()
+				 System.out.println(i);
+		 }
+	 }
+}
+
+public class Sample
+{
+	public static void main(String s[])
+	{
+		PredicateDemo predicateDemo = new PredicateDemo();
+
+		Predicate<Integer> P1 = k -> k > 10; // Here we're defining the code for test()
+		Predicate<Integer> P2 = k -> k%2==0;
+		int x[] = {1,2,3,4,5,20,10,21,40,60,55,78};
+		System.out.println("Number >10 are: ");
+		predicateDemo.method1(P1, x);
+		System.out.println("Even numbers are: ");
+		predicateDemo.method1(P2, x);
+		System.out.println("Number >10 & Even numbers are: ");
+		predicateDemo.method1(P1.and(P2), x);
+		System.out.println("Number >10 OR Even numbers are: ");
+		predicateDemo.method1(P1.or(P2), x);
+		System.out.println("Number < 10 AND ODD numbers are: ");
+		predicateDemo.method1(P1.negate().and(P2.negate()), x);
+	}
+}
+ 
+ 
+O/p --
+Number >10 are: 
+20
+21
+40
+60
+55
+78
+Even numbers are: 
+2
+4
+20
+10
+40
+60
+78
+Number >10 & Even numbers are: 
+20
+40
+60
+78
+Number >10 OR Even numbers are: 
+2
+4
+20
+10
+21
+40
+60
+55
+78
+Number < 10 AND ODD numbers are: 
+1
+3
+5
+
+ 
+ Eg 2 : Remove null values and empty strings in a given list.
+ 
+ two  things to checks..
+ 1. if the string is empty
+ 2. if the string is null.
+ 
+ So, let's use Predicate to perform the above conditional checks.
+ Predicate<String> P1 = s1 -> s1.length() == 0;
+ Predicate<String> P2 = s1 -> s1 == null;
+ 
+ Predicate<String> P3 = P1.or(P2);
+ 
+ class PredicateDemo
+{	 
+	 public void method1(Predicate<String> P1, String[]x)
+	 {
+		 for (String i: x)
+		 {
+			 
+			 if (P1.test(i))
+				 System.out.println(i);
+		 }
+	 }
+}
+
+public class Sample
+{
+	public static void main(String str[])
+	{
+		PredicateDemo predicateDemo = new PredicateDemo();
+
+		Predicate<String> P1 = s1 -> s1.length() == 0;
+		 Predicate<String> P2 = s1 -> s1 == null;
+		 Predicate<String> P3 = P2.or(P1);
+		String[] strArr = {"Sarath", "", null, "Ravi", null, "", "Kollam"};
+		System.out.println("Strings that are not null are: ");
+		predicateDemo.method1(P3.negate(), strArr);
+	}
+}
+ 
+ 
+ 
+ Note: Here you can reduce the number of Predicate to 1 by simply putting both the condition checks in a single predicate as below:
+ Predicate<String> P1 = s-> s != null && s.length() != 0;
+ 
+ 
+ Why Predicates came when we can simply write the conditions in the raw type? How advantageous ?
+ 
+ By declaring all the Predicates(i.e all the individual conditional checks) seperately/Globally (similar to .properties file for the entire application)
+ we can avoid writing the same condition checks again & again in different files 
+ ... Instead we can invoke the test() of the respective Predicate that satisfy our conditional check.
+ 
+ 
+ 
+ Function - Pre-defined functional interface 
+ 
+ Another Pre-defined interface, provided in Java  1.8.
+ Pkg: java.util.Function;
+ Contains the "apply()" abstract method declard inside it. 
+ 
+ Method signature is as follows:
+ 
+ interface Function<T, R>
+ {
+	public abstract R apply(T k); 
+ }
+ 
+ T -- Input type of the element it accepts
+ R -- is the return type of the value its going to return.
+ 
+ 
+ Unlike the predicate.test() which will have only the boolean return type.. the return type of "apply()" is user-defined.
+ 
+ For eg:
+ 
+ Function<Integer, String> f1 = s -> s.length();
+ 
+ Explanation : Here, user want to calculate the length of the given string and then return its length. 
+               So the input type 
+                   T(Input type) --> is replaced by String
+				   R(Return type) --> is replaced by Integer.
+				   
+				   
+ 
+ Note: ela gurthu unchukoovali ante..
+ Predicate mathematical nature -- ture/false decide chestadi..so andulo method name test().
+ Function .. ante oka operation perform chesi some result generate chestadi... maths lo ayina leka programming lo ayina.. so apply() (i.e apply that function ani anukodame)
+ 
+ 
+ Eg 1: Square the given number
+ public class Sample
+ {
+	public static void main(String str[])
+	{
+		
+
+		Function<Integer, Integer> f1 = i -> i*i;
+		Integer i1 = f1.apply(10);
+		System.out.println("Square of the given number: "+i1);
+	}
+}
+ 
+ 
+ O/p - Square of the given number: 100
+
+ 
+ Eg 2: Display the Grade ofeach student and Followed by list out the names
+ of students who got A grade only
+ 
+ class Student
+{
+	String name;
+	int percentage;
+	
+	public Student(String name, int percentage) {
+		this.name = name;
+		this.percentage = percentage;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
+	
+}
+
+
+public class Sample
+{
+	public static void main(String str[])
+	{
+		/* 
+		 * Function
+		 * Accepts Student type returns String (grade)
+		 */
+		Function<Student, String> f1 = s -> {
+			if (s.percentage >= 60)
+				return "A";
+			else if (s.percentage >= 50)
+				return "B";
+			else if (s.percentage >= 40)
+				return "C";
+			
+			return "D";
+		};
+		
+		
+		/*
+		 *  Function interface + Predicate used together
+		 *  Defined predicate to evaluate the student grade.
+		 *  Invokes the apply() to fetch the grade of the Std
+		 */
+		Predicate<Student> p1 = std -> f1.apply(std).equals("A");
+
+		
+		// Taking the user input for the Student details
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Please enter the 5 Student details");
+		Student[] stdsArr = new Student[5];
+		for (int i=0;i<5;i++)
+		{
+			
+			System.out.println("Enter the student name: ");
+			String stdName = sc.next();
+			System.out.println("Enter the student percentage: ");
+			int stdAge = sc.nextInt();
+			
+			Student std = new Student(stdName, stdAge);
+			stdsArr[i] = std;
+		}
+
+				
+		System.out.println("Students Grades are: ");
+		
+		for (Student std: stdsArr)
+		{
+			String gradeOfTheStudent = f1.apply(std);
+			System.out.println(gradeOfTheStudent);
+		}
+		
+		System.out.println("Students with A Grade are: ");
+		for (Student std: stdsArr)
+		{
+			String stdName =  p1.test(std) ? std.getName() : "";
+			System.out.println(stdName);
+		}
+	}
+}
+ 
+ 
+ O/p --
+Please enter the 5 Student details
+Enter the student name: 
+Sarath
+Enter the student percentage: 
+80
+Enter the student name: 
+Supraja
+Enter the student percentage: 
+60
+Enter the student name: 
+Aiswarya
+Enter the student percentage: 
+57
+Enter the student name: 
+Vaishnavi
+Enter the student percentage: 
+45
+Enter the student name: 
+Sriya
+Enter the student percentage: 
+35
+Students Grades are: 
+A
+A
+B
+C
+D
+Students with A Grade are: 
+Sarath
+Supraja
+
+
+
+Function Chanining
+
+Similar to the Predicate Joining.. which allows to combine multiple Predicate units.. Similarly we term 
+such thing in the Function as Function Joining.
+
+Java has provided 2 defult methods for Function chaining ..
+
+
+1. andThen  -- Flow starts from Left most Function
+2. compose -- Flow starts from the Right most Function
+
+
+Function<Integer, Integer> f1 = x -> x+x;
+Function<Integer, Integer> f2 = y-> y*Y;
+
+Eg 1: 
+
+Integer result = f1.andThen(f2).apply(100);
+ 
+Explanation: 1st process the f1 on the given initial input passed to apply() and then process the output of f1 with f2
+
+In the above eg:
+
+input is 100..
+f1 functionality -- 100 +100 =200
+f2 functionality -- Now the input is 200. and the operation is square.. so 200*200 = 40000 
+ 
+ 
+Eg 2.  
+ 
+ Integer result = f1.compose(f2).apply(2)
+ 
+ Explanation : 1st process the f2 on the given initial input passed to apply() and then process the oput of f2 with the f1
+ 
+ In the above eg:
+ 
+ input is 2..
+ 
+ f2 functionality -- 2*2 = 4
+ f1 functionality -- take 4 as input and then the operation is addition of itself.. so 4+4 = 8
+ 
+ 
+ 
+ CONSUMER
+ 
+ Its again a Pre-defined functional interface introduced in the 1.8.
+ Pkg - Java.util.Function;
+ 
+ It contains the abstract method "Accept(T t)", which takes an input of type T and does not return anything.. as the name of the interface
+ says .. it only consumes what ever the value is provided but does not provide any output..
+ 
+ its upto the user to provide what ever the definition the user wishes..
+ 
+ Method Signature as follows:
+ 
+ interface Consumer<T>
+ {
+	 public abstract void accept(T k);
+ }
+ 
+ 
+ T - type of the input k
+ No return type.. so it returns nothing.
+ 
+ Eg 1:  
+ 
+ Consumer<Integer> c = s -> sysout(s.length());
+ c.apply("Sarath");
+ 
+ O/p -- 6
+ 
+ 
+ 
+ CONSUMER chaning
+ 
+ Java 8 has provided the below default method to combine multiple consumer entities/operations..
+ 
+ 1. andThen -- Similar to the Function andThen method.. here also it the flow start from the Left most Consmer and then moves towards right.
+               But the only difference, here is each consumer will perform their own respective operation on the same input.. as the 
+			   consumer will not generate any output unlike the Function
+ 
+ 
+ 
+ For eg: Say 3 different consumers defined on the top of a Movie class..
+ 
+ C1 -- Notify/publish the movie details
+ C2 -- Publish the Collection of the movie
+ C3 -- Publish the result of the movie whether its hit or flop.
+ 
+ 
+ Movie mve = new Movie();
+ C4 -- C1.andThen(C2).andThen(C3);
+ C4.accept(mve);
+ 
+ 
+ Full Java program as below :
+ 
+ package SamplePackage;
+
+import java.util.function.Consumer;
+
+class Movie
+{
+	String name;
+	String date;
+	int collection;
+
+	public Movie(String name, String date, int collection) {
+		this.name = name;
+		this.date = date;
+		this.collection = collection;
+	}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public int getCollection() {
+		return collection;
+	}
+	public void setCollection(int collection) {
+		this.collection = collection;
+	}
+}
+
+public class Sample
+{
+	public static void main(String str[])
+	{
+		Movie mve = new Movie("Athadu", "28March", 1000);
+		Consumer<Movie> c1 = m -> System.out.println(m.getName()+" ,"+m.getDate());
+		Consumer<Movie> c2 = m -> System.out.println(m.getCollection());
+		Consumer<Movie> c3 = m -> {
+			if (m.getCollection() > 100)
+				System.out.println("HIT");
+			else
+				System.out.println("FLOP");
+		};
+		
+		Consumer<Movie> chainC4 = c1.andThen(c2).andThen(c3);
+		chainC4.accept(mve);
+	}
+}
+
+
+O/p -- 
+Athadu ,28March
+1000
+HIT
+
+ 
+ Supplier Functional Interface
+ 
+ -- Another Pre-defined interface defined in 1.8
+ -- Pkg : Java.util.function;
+ -- Contains the method abstract method get() which takes no parameter/input/arugement.. but it will has a return type which ever the user wants..
+ 
+ i.e the name of the interface says "Supplier" .. the english meaning is give something.. and so we can remember this way..
+ Supplier will always give where as Consumer will always accept.
+ 
+ -- method signature looks as below :
+ 
+ interface Supplier<R>
+ {
+	 public abstract R get();
+ }
+ 
+ R -- return type.. which ever the value type the user wants
+ Note: No argument its accepting.. 
+ 
+ How we use this Supplier interface?
+ 
+ Say, for eg: if the user request to provide the today's date? then we can use this supplier.
+              if the user want some random number for otp generation
+			  if the user want some random string	 
+ 
+ 
+Eg 1:
+ 
+ public class Sample
+{
+	public static void main(String str[])
+	{
+		Supplier<String> s1 = () -> {                                 // here the LHS of "->" has no arguments.. as the get() does not take any areguments
+																	  // Also, the reference variable s1 wraps <String>, which means its going to return the String value			
+			 System.out.println("Inside the Supplier interface");
+			 return "Hello user, i am the return value for the get()";
+		 };
+		 
+		 String returnedValueString = s1.get();                       // invoking the get() from the Supplier interface reference variable
+		                                                              // for making the method definition to execute.
+		 System.out.println("returnedValueString: "+returnedValueString);
+	}
+}
+ 
+ 
+ O/p -- Inside the Supplier interface
+        returnedValueString: Hello user, i am the return value for the get()
+
+ 
+ 
+ 
+ Predefined  Bi-Functional Interface
+ 
+ Till now, we have various interfaces, accepting a ****single parameter and performing the respective user defined operation.
+
+ 1. Predicate<T> -- boolean test(T t);
+ 2. Function<T, R> --  R apply(T t);
+ 3. Consumer<T> -- void accept(T t);
+
+ However, Java8 has extended their capacity to accept 2 parameters for each of the above methods there by terming such interface as Bi-Functioanl Interface
+ 
+ Note that, the chaining/Joining method & concepts remain same. There is no change in it.. The only difference, all these bi-functional interface
+ will have another new input type paramter in their method signature.
+ 
+ **As the names of the interface can not be re-used... so Java people has pre-fixed the same above interface names with the word "Bi"
+ 
+ The method signature as follows:
+ 
+ 1. BiPredicate
+ 
+ interface BiPredicate<T, U>
+ {
+	 public abstract boolean test(T t1, U t2);
+ }
+ 
+ T --  type of 1st input argument
+ U --  type of 2nd input argument
+ returns boolean value
+ 
+ 
+ 2. BiFunction
+ 
+ interface BiFunction<T, U, R>
+ {
+	 public abstract R apply(T t1, U t2);
+ }
+ 
+ T -- type of the 1st input argument
+ U -- type of the 2ns input argument
+ R -- is the return type of the value that apply() is going to return
+ 
+ 
+ 3. BiConsumer
+ 
+ interface BiConsumer<T, U>
+ {
+	 public abstract void accept(T t1, U t2); //Note: public & abstract keyword compiler will add automatically if not mentioned while writing the interface
+	                                          //  as all the methods inside them are public abstract by defualt.        
+ }
+ 
+ T -- type of the 1st input parameter
+ U -- type of the 2nd input parameter
+ 
+ Note: There is no return type for this method.. as the Consumer will always accept some input values(method arguments) but will never return any value.
+ 
+ 
+ 
+ Primitive type Functional Interfaces
+ 
+ As part of the optimization(to improve the time of execution) process and improve the performance of a Functional interface, Java8 has introduced
+ Primitive type Functional interface.
+ 
+ 	
+ Why there was a optimization required? How Java team improved the time of execution?
+ 
+ 
+ We have seen all the above interfaces are Generic ones.. i.e as they contain the parameter section which is symbollically represented as <> (using the angular brackets.)
+ Since, this parameter types will allow only the non-primitive types .. so we can have only the Non-primitive types of Functional interfaces.
+ 
+ Say, if a Predicate is defined to validate if the input is > 10.
+ 
+ Now, here the input is passed as a primitive type(int) but the type arugument is declared as Integer.. 
+ 
+ Flow as below : 
+ 
+ 1. Since from Java 1.5 with the help of Auto-boxing
+ the compiler will automatically convert the value to interger  .... int --> Integer
+ 
+ 2. but to validate the > 10 condition again it converts back to with the help of auto-unboxing .. Integer --> int
+ 3. then return the boolean value.
+ 
+ Here..multiple redundant autoboxing and unboxing operations are being performed. which leads to more time consumption and bad performance.
+ 
+ 
+ So, Java people has introduced the Primitive type Functional interfaces for all the above ones.
+ 
+ Each of the above Functional interface has their Primitive types declared in the Java8.
+ 
+ Refer : java-8-new-features-in-simple-way -- udemy course Durga soft videos for the primitive type
+         or Google for primitive type functional interface for Predicte, Function, Consumer, Supplier
+		 
+
+ Unary operator & Binary Operator Functional interfaces
+ 
+ These are the specialized versions of the "Function" functonal interface, where the input and the ouput type arguments are same. 
+ say for eg: input is an integer and return the square of the number..
+ 
+	We define the Function interface as below:
+
+		interface Function<Integer, Integer>
+		{
+			public abstract Integer apply(Integer t);
+		}
+ 
+		In the actual code, 
+		
+		Function<Integer, Integer> f1 = t -> t*t;
+		
+	So, when we use the same input type and return type, then such case, we can use UnaryOperator Functional interface.
+	-- UnaryOperator  interface extends Function interface .. there fore we can use the apply() belonging to the Function interface
+	
+	
+	Signature :
+	@FunctionalInterface
+	public interface UnaryOperator<T> extends Function<T, T> 
+	{
+		
+	}
+	
+ Explanation :
+ 
+    0. The type argument of the UnaryOperator has only type argument "T" which will indicate the return type and the argument type are same.
+	1. It extends the "Function" functional interface.
+	2. So no additional abstract method of its own is declared in it.. as @FunctionalInterface must contain only 1 abstract method.
+	3. contains a static method identity()
+	
+	
+	Eg 1: Calculate the square of the number 
+	
+	
+	public class Sample
+	{
+		public static void main(String asr[])
+		{
+			UnaryOperator<Integer> u1 = t -> t*t;
+			Integer i1 = u1.apply(10);
+			sysout("The result is :" +i1);
+		}
+	}
+ 
+ O/p -- 100
+ 
+ 
+ note: UnaryOperator interface type is declared.. and used u1 reference variable to trigger the apply()
+ 
+ 
+ We also have the primitive types of UnaryOperator as well.
+ 
+ 
+ 
+ BinaryOperator Functional interface
+ 
+ It's similar to the BiFunction functional interface, which accepts and the return type of the values are same.
+ 
+ Note: BinaryOperator extends BiFunction interface.
+ 
+ therefore we can use same apply() belonging to the BiFunction interface.
+ 
+ method signature:
+ 
+ @FunctionalInterface
+public interface BinaryOperator<T> extends BiFunction<T,T,T> 
+{
+}
+ 
+ 1. BinaryOperator is a Functional interface which has the same type argument.. so only one type argument is used instead of 3 as in the Function
+ 2. No explicit abstract method declared inside the BinaryOperator interface, as this interface extends the BiFunction and therefore
+    implicitly inherit the accept(T t1, T t2) of the parent class.
+ 3. This is again a Functional interface.. and can hold multiple default and static methods.. Google it to see complete info.
+
+The apply method signature looks as below:
+
+interface BinaryOperator<T>
+{
+	public abstract T apply(T t1, T t2);
+} 
+ 
+Eg:
+
+public class Sample
+{
+	public static void main(String args[])
+	{
+	  
+	  BinaryOperator<Integer> b = (x, y) -> x-y;
+	  
+	  int subtractionOf2Numbers = b.apply(1,3);
+	  sysout(subtractionOf2Numbers);
+	  
+	   	
+	}
+} 
+ 
+ 
+O/p : -2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Comparator Interface 
+
+A SAM interface which contains the below method declared..
+
+public int compare(Object1, Object2);
+
+We use this method specially in the sorting purpose. Say for eg: Collections.
+
+Java Collection can be sorted by using the inbuilt method "sort()" provided below method signature:
+
+Collections.sort(<Collection obj to sorted>, <Comparator obj>);
+
+it accepts 2 params:
+
+1. Collection obj to be sorted say for eg: An arrayList, LinkedList, Set, Map...etc., 
+2. Comparator obj..
+ 2.1 By default, the collection is sorted in the Ascedning order.However if the collection needs to be sorted 
+ in other fashion, then its the user responsibility to ovverdie the code.
+ 
+ Working of compare():
+ 
+ takes 2 input values.. and then performs the user provided logic on the top of the 2 input values.
+ 
+ returns a integer... which we can classify broadly into 3 types by which the elements in a collection is sorted..
+
+ +ve : to swap the positions of the elements in the list/array/etc.,
+ -ve : do not swap the elements
+ 0   : if given 2 elements are equal.
+ 
+ Assume arraylist "al" contains the 2 numbers 10, 20
+ 
+ Collections.sort(al); -- will give the ascending order of the list.
+ Now, if we want the descending order, then user has to override the definition..
+ So, when passed 10, 20 to the compare(), 
+ 
+ and the expectation is descending order.. return +ve number..

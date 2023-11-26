@@ -1,0 +1,17 @@
+Java streams : 
+https://www.geeksforgeeks.org/stream-in-java/
+
+reduce() inside the stream eg link -- https://www.geeksforgeeks.org/generics-in-java/
+
+Java Collectors : 
+
+https://www.geeksforgeeks.org/java-collectors/
+
+Java Generics : 
+
+https://www.geeksforgeeks.org/generics-in-java/
+
+
+Streams & Generics :
+
+https://javabydeveloper.com/core-java/ 

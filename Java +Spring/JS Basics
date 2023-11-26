@@ -1,0 +1,123 @@
+Data types in JS
+
+Primitive : This will allow to store only one value
+Non-Primitive : Allows to store multiple values inside a variable
+                Achieved through creation of object
+				Eg: Object
+
+String
+number
+boolean
+undefined(case sensitive) -- A variable is declared, but not initialized.
+                             This variable will return "undefined" as output when printed.
+			                 Eg :  var x;
+			                 console.log(x); -- Prints "undefined".
+			
+			                 We can manually initialize the variable with "undefined".
+                             var x = undefined;
+
+null(case sensitive)
+
+
+Hoisting -- JS engine, will automatically move the variable/function declarations (alone)
+            to the top, above the variable initialization/Function definition.
+			This will avoid any compilation errors like variable/function not declared
+			
+			Unlike declarations, variable initializations are not hoisted.
+			
+			For Eg: var x;
+			        console.log(x); -- the output will be undefined, but not 23. i.e, the values are not initalized
+					x = 23;
+												
+			
+			For Eg : in the below block of code
+			
+			        a = 1;
+			        alert("A = "+a);
+			        var a; --- Now the compiler by default move this line to top
+					
+== vs ===
+
+== : compares the content of the variables (achieved through the implicit coercion)
+=== : compares the content along the types of the variables
+
+var x = 2;
+var y = "2";
+ 
+x==y -- true;
+x===y -- false (string vs number)
+
+
+Implicit coercion
+
+converson of one data type to another implcitly
+
+Eg : For "+" operator always the number data type is converted to String"(String coercion)"
+
+     2 + "2" -- the number data type is converted to String and the output is printer
+	 
+	 For "-" op, the "number coercion" happens
+	 
+	 2 - "2" --  Here the String will be converted to number, and prints output
+	 
+
+Boolean coercion
+0, 0n, -0, “”, null, undefined and NaN -- false. All other values returns true
+In case of boolean operator, in below examples
+
+var x = 0;
+var y = 23;
+        
+if (x) 
+{ 
+ console.log(x);  // The code inside this block will not run since the value of x is 0(Falsy)  
+}
+        
+if (y) 
+{ 
+ console.log(y); // The code inside this block will run since the value of y is 23 (Truthy)
+}
+
+Logical operators -- Unlike other programming lang, in JS an operand will be return
+
+AND (&&)  For Eg :  a && b -- will return either A or B
+                     
+Rules :  1) If both a & b are truth -- then b will be returns
+         2) If any of them is false, the false value will be returned
+		 
+OR (||) 
+
+Rules : 1) which ever the value is truth, that value is retured
+
+
+Note :  These op will return the either of the values only if the expression is being directly
+         used and not used as a condition such as inside 
+		 "if (condition)"
+		 
+For eg : var x = 220;
+         var y = "Hello";
+         var z = undefined;
+		 
+		 x | | y    // Returns 220 since the first value is truthy
+         x | | z   // Returns 220 since the first value is truthy        
+		 x && y    // Returns "Hello" since both the values are truthy
+		 y && z   // Returns undefined since the second value is falsy
+
+
+		 if( x && y )
+		 { 
+           console.log("Code runs" ); // This block runs because x && y returns "Hello" (Truthy)
+         }   
+        
+         if( x || z )
+		 {
+           console.log("Code runs");  // This block runs because x || y returns 220(Truthy)
+         }
+
+Scope -- Global scope -- 
+         Functional scope -- Scope of the variable declared will be limited to the function alone.
+		 Block scope -- Is applicable for variables declared using only let and const
+		                A block is a part of code that is in bounded by {} (open and closing braces)
+					    
+		 
+var vs let vs scope -- https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/#:~:text=So%20just%20in%20case%20you%20missed%20the%20differences%2C,top%20of%20their%20scope.%20...%20More%20items...%20

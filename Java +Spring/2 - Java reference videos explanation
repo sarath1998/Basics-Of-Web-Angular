@@ -1,0 +1,516 @@
+https://www.geeksforgeeks.org/non-access-modifiers-in-java/#:~:text=Modifiers%20are%20specific%20keywords%20present,class%20and%20limit%20its%20scope.)
+Modifiers in Java :  2 types (
+ 1. Access Modifiers : restrict the scope of a variable, method, class, or constructor
+ 2. Non-access Modifiers : Non-access modifiers provide information about the characteristics of a class, method, or variable to the JVM
+  
+
+Access modifiters - Below is the list based on the scope of openness(Ascending order)
+private -- a method or a variable is accesible only inside the class they are declared
+             variable inside a method -- local variable
+						 variable inside a class -- instance variable
+        -- a Top class never be a private(which has main method).
+				Note: A inner class can be a private/protected.
+default -- a method, class, variable is accessible inside that pkg only
+        Note: We do not use the keyword "default" instead leave as empty
+protected -- in the same pkg, and other pkg through inheritance (i.e, the subclass(Child Class extending Parent class in the source pkg)       		 
+Public -- Any method, class, variable is accessible from any place
+
+Non-access modifiers -- total 7
+static
+final
+abstract
+synchronized
+volatile
+transient
+native
+
+
+1. Class level -- private and protected are not allowed for top level class
+(https://www.programmingmitra.com/2016/10/why-a-java-class-can-not-be-private-or-protected.html) --
+2. methods  -- can hold all the access modifiers
+3. Variables -- abstract is not allowed 
+4. private -- only in the same class
+5. default -- by default only in the same pkg
+6. protected -- in the same pkg or in another pkg if the new class is subclass of the base class
+7. public -- any class in any pkg
+
+Exception Handling 
+                     -- Compiletime exception, Runtime exception, customized exceptions--how we can create
+
+(Root class)Throwable -- Error (Subclass)
+                      -- Exception (Subclass) -- Checked Exceptions -- IO Exception, SQL Exception -- These exceptions are checked at Compile time
+                      -- Unchecked Exceptions(Runtime Exceptions) -- Arthematic Exception, IndexOutOfBounds...
+
+3 types of Exceptions
+
+Checked Exceptions -- Extends Throwable class except RuntimeException and Error classes 
+                      These exceptions are checked at Compile time
+					  IO Exception, SQL Exception (https://techvidvan.com/tutorials/java-checked-and-unchecked-exception/)
+					  
+					  The exceptions that are checked during the compile-time are termed as Checked exceptions in Java. 
+					  The Java compiler checks the checked exceptions during compilation to verify that a method 
+					  that is throwing an exception contains the code to handle the exception with the try-catch block or not.
+
+                      And, if there is no code to handle them	, then the compiler checks whether the method is declared using 
+					  the throws keyword. And, if the compiler finds neither of the two cases, then it gives a compilation error. 
+
+UnChecked Exceptions -- Unchecked exceptions are not checked at compile-time, but they are checked at runtime.
+
+Error -- Irrecoverable -- Our of Memory
+
+
+Why FileNotFoundException is CheckedException?
+I know FileNotFound is Checked Exception but though it is, only during the Run time this exception will occur.
+It is more like Arithmetic Exception(Unchecked).
+
+Whether it is checked or unchecked the exception will happen only during runtime.My Question is why we call the FileNotFound/IO/DB related stuffs as Checked Exception? 
+Please share me your valuable thoughts :)
+
+Answer:
+
+Exceptions always encountered at runtime only, Difference is made when a exception is handled.
+
+Checked or unchecked means whether it is forced to handle at compile time or it will only be identified when it is encountered at runtime.
+
+If an exception is checked means compiler has way to identify whether the exception can occur or not. and whenever you compile it, 
+you will be forced to handle a checked exception and by doing this chances of runtime exceptions will be reduced.
+
+During file handling, compiler doesn't check whether file is present or not, 
+it just check whether you have handled fileNotFoundException or not, 
+because once you are dealing with a file chances of encountering this exception is very high and you should handle it in your code. 
+For arithmetic Exception there is not way to find it during compile time. and thus it is left unchecked.
+
+
+Throw vs Throws
+
+Throw -- used to thrown an Exception object. 
+         Eg: throw new_Instance(<error message>); Here the instance should be the "Throwable" object or subclass of it
+Throws -- used to declare exception(that could occur in the method) along with the method signature
+
+Exception is the sub class of Throwable and the user-defined exceptions usually extend the Exception class.
+
+
+
+Strings --- An array of characters; 
+						Can be created in 2 ways
+						1. using new keyword; String s2 = new String("sarath");
+						2. using literal;  String s1 = "sarath";
+
+Memory Allocation: 
+  -- Ideally, memory for any object ****runtime(using new keyword)  is allocated in **Heap.
+1.	-- Using new keyword, 2 objects are created,
+	   1. In string constant pool -- An object with the literal.
+		 2. An object in the Heap area, where the reference variable will point to this object
+		 For eg:  String s1 = new String("Sarath");
+		          String s2 = new String("Sarath");
+              String s3 = new String("Chandra"); --- 							
+		 
+     Eg1: Now, 2 objects one in Heap and other in String constant pool.
+          The reference variable s1 will point to the object in Heap area.
+     Eg2: Only 1 object in the Heap area will be created.
+          As already the String "sarath" is already present in the String constant pool,
+          it is not recreated.
+
+     Eg3: 2 objects, each in the Heap and String constant pool
+
+     Note:  "==" operator, will check for memory reference. 
+     In the above example, s1 == s2 will be false, as both s1 & s2 are pointing 2 different objects(memory locations in Heap Area).
+            "equals()", will compare the literal(string) only
+     But s1.equals(s2) -- will be true as both the objects string is same (sarath).
+		 
+2. In case of creating string using literal, then only 1 object is created in String constant pool
+  For eg: String s3 = "hello";
+	In this case, only one object in String constant pool.
+	
+***String Constant pool -- Its an area inside heap Memory
+
+(https://www.youtube.com/watch?v=xldyBBdpknM&list=PL3NrzZBjk6m8rEJ4O6Kpk_i1Ah8Le5Od-&index=24) -- Memory allocation for Strings
+
+Immutable(can not be changed) -- Once String object is created its data or state 
+                                 can't be changed but a new String object is created
+
+Eg: 
+class Testimmutablestring{  
+ public static void main(String args[]){  
+   String s="Sachin";  
+   s.concat(" Tendulkar");//concat() method appends the string at the end  
+   System.out.println(s);//will print Sachin because strings are immutable objects  
+ }  
+}  
+
+Note: Here Sachin is not changed but a *****new object is created with Sachin Tendulkar. two objects are created but s reference variable 
+      still refers to "Sachin" not to "Sachin Tendulkar".  if we explicitly assign it to the reference variable, 
+			it will refer to "Sachin Tendulkar" object
+
+class Testimmutablestring1{  
+ public static void main(String args[]){  
+   String s="Sachin";  
+   s=s.concat(" Tendulkar");  // Explicit assignment
+   System.out.println(s);   //  "Sachin Tendulkar"
+ }  
+} 
+
+Why String objects are immutable in Java?
+As Java uses the concept of String literal. Suppose there are 5 reference variables, 
+all refer to one object "Sachin". If one reference variable changes the value of the object, 
+it will be affected by all the reference variables. That is why String objects are immutable in Java.
+
+https://www.javatpoint.com/immutable-string
+
+
+How to create a immutable class? 
+Ans : 1. Only private fields. 
+      2. Should be initalized in a constructor. 
+			3. Only getters and no setters 
+
+https://www.javatpoint.com/java-string-intern - String intern
+
+												
+												
+String -- In **Java, its an object + a sequence of characters.
+isEmpty() -- checks if the string is emtpty or not(length == 0)
+          -- its does not apply for the string whose value is null, eventough "null means no value"
+					-- It throws Null pointer Exception when isEmpty is checked with a string whose value is null
+					-- Instead of isEmpty use "==" operator. See below
+					     if (s1 == null) // checks if the string is null or not
+
+
+Abstraction  -- Abstraction is a process of hiding the implementation details and showing only functionality to the user
+"abstract"   --  Its an keyword applied for a method/class(do not change, same keyword as said in LHS)
+                 There are two ways to achieve abstraction in java
+
+                 1. Abstract class (0 to 100%)
+                 2. Interface (100%)
+
+
+1. Abstarct class:   An abstract class can have a data member, **static method(method signature with static keyword), 
+                     abstract method, method with a body (non-abstract method), 
+                     ****constructor, and *****even main() method.
+										 
+   Note: We can not instantiate an Abstract class(Object can not be created).
+									
+   Abstract method:	should have keyword "abstract" in the method signature
+                    If there is an abstract method in a class, that class must be abstract.
+
+Eg: 
+   abstract class Bike
+	 {  
+     Bike()
+	   {
+	     System.out.println("bike is created");  // Abstract class with a constructor
+	   }  
+     
+		 abstract void run();  // An abstract method (No method defined)
+		 
+     void changeGear()
+		 {
+		   System.out.println("gear changed");  // Non abstract method
+		 }   
+   }  
+	 
+   class Honda extends Bike                  // A child class, that extends an abstract class
+	 {  
+     void run()                                 // Since it implements all the abstract method of parent class, it's not an abstract class.  
+		 {
+		   System.out.println("running safely..");  
+		 }  
+   }
+	 
+   
+   class TestAbstraction2
+	 {  
+     public static void main(String args[])  //Creating a Test class which calls abstract and non-abstract methods  
+	   {  
+       Bike obj = new Honda();  
+       obj.run();  
+       obj.changeGear();  
+     }  
+   }
+
+
+Eg: 
+
+		// A Java program to demonstrates
+// an abstract class with constructors
+ 
+// Creating an abstract class Car
+abstract class Car {
+ 
+  // Creating a constructor in
+  // the abstract class
+    Car() {
+      System.out.println("car is created");
+    }
+}
+ 
+// A class that extends the
+// abstract class Car
+class Maruti extends Car {
+ 
+  // Method defining inside
+  // the Maruti class
+    void run() {
+      System.out.println("Maruti is running");
+    }
+}
+ 
+class GFG {
+ 
+    public static void main(String[] args)
+    {
+        Maruti c = new Maruti();
+        c.run();
+    }
+}
+
+
+Output :
+
+car is created
+Maruti is running
+
+
+Why abstract classes have a constructor? 
+
+The main purpose of the constructor is to *****initialize the ****newly created object. In abstract class, **we have an instance variable, abstract methods, 
+and non-abstract methods. ***We need to initialize the non-abstract methods and instance variables, therefore abstract classes have a constructor.
+
+Also, even if we don’t provide any constructor the compiler will add default constructor in an abstract class.
+
+An abstract class can be inherited by any number of sub-classes, thus functionality of constructor present in abstract class can be used by them.
+The constructor inside the abstract class ***can only be called during ***constructor chaining i.e. when we create an instance of sub-classes. 
+This is also one of the reasons abstract class can have a constructor.
+
+
+
+
+Eg: Java program to demonstrate static method
+
+ 
+import java.io.*;
+ 
+// super-class A
+abstract class A {
+ 
+    // static method func
+    static void func()
+    {
+        System.out.println("Static method implemented.");
+    }
+ 
+    // abstract method func1 it has no body
+    abstract void func1();
+}
+ 
+// subclass class B
+class B extends A {
+ 
+    // class B must override func1() method
+    void func1()
+    {
+        System.out.println("Abstract method implemented.");
+    }
+}
+ 
+// Driver class
+public class Demo {
+    public static void main(String args[])
+    {
+        // Calling the abstract
+        // static method func()
+        B.func();
+        B b = new B();
+        b.func1();
+    }
+}
+
+Output : 
+
+Static method implemented.
+Abstract method implemented. 
+
+Why can’t static methods be abstract in Java?-- https://www.geeksforgeeks.org/why-cant-static-methods-be-abstract-in-java/#:~:text=Why%20can%E2%80%99t%20static%20methods%20be%20abstract%20in%20Java%3F
+									
+Interface -- all methods are ***abstract + public by default
+            all members are ****public + static + final by default
+						Multiple inheritance can be practically implementable using the interface
+            In Jave 1.8 **intoduced the default and static methods which will allow to have method body 
+						in the interface from java8
+						Note: A class, implementing an interface must implement every method, else it should be declared as "abstract class"
+						      The implementing class is allowed to override the default methods if needed. (Its not mandatory to override the default methods in the implementing class).
+									
+1. Types of Interface -- Functional, Normal, Marker interface
+
+ 1.1. Marker interface -- An empty interface i.e, does not have any methods, fields, or constants
+				               -- What's the use of it, when its empty? 
+											      Ans: These interface are meant to provide some additional information to 
+											           the JVM about the object. 
+																 For eg: 1. Assume a class implementing a Marker interface "Serializable". This makes understand
+																 the JVM that this class can be serialized or de-serialized 
+																        2. Assume class implementing the Cloneable interface, then JVM can understand that this class
+																				   can be cloned and can invoke the clone() to copy the object and create a new one.
+
+2. Default and static methods in interface
+Default method -- An interface can have any no of default methods.
+               -- Normal method with a "default" keyword in method signature
+							 -- A default method can be overriden by a method that belongs to the class which implements interface
+							 -- A functional interface will allow to have *****any no of default methods to have in it. but there should be only
+			             one other method
+							 --	****Invoking the default methods.. See below examples	 
+Eg:
+
+@Functional interface  -- Allows any no of default methods
+interface Abc
+{
+	default int method1()
+	{
+	  System.out.println("In Method 1");
+	}
+	
+	default int method2()
+	{
+	  System.out.println("In Method 2");
+	}
+	
+	public abstract int method3(); // public & abstract keywords are not mandatory, 
+	                                 as compiler will be putting them automatically
+}
+
+class igb implements Abc
+{
+  public int method2()
+	{
+	  System.out.println("Default Method 2 is overriden");
+	}
+}
+
+Eg: Implementing Default methods -- Invoking the Overriden Default method defined in the Class
+
+interface MyInterface{  
+   public static int num = 100;
+   public default void display() {                                   // Default method in the class.
+      System.out.println("display method of MyInterface");
+   }
+}
+public class InterfaceExample implements MyInterface{
+	
+	 @Override
+   public void display() {                                           // *****keyword override. ***********No "default" keyword in method signature
+      System.out.println("display method of class");                    
+   }
+   public static void main(String args[]) {
+      InterfaceExample obj = new InterfaceExample();
+      obj.display();                                                 // Invoking the overriden default method using the ***class object
+   }
+}
+
+O/p - display method of class
+
+
+Eg: Implementing Default methods -- Invoking the actual interface default method from inside the implementing class
+
+
+interface A{  
+   public static int num = 100;
+	 
+   public default void foo() {                                   // Default method in the Interface A.
+      System.out.println("Interface A's default method");
+   }
+}
+
+interface B{  
+   public static int num = 100;
+	 
+   public default void foo() {                                   // Default method in the interface B.
+      System.out.println("Interface C's default method");
+   }
+}
+
+
+public class ChildClass implements A, C {
+    @Override    
+    public void foo() {
+       doSomethingElse();  //you could completely override the default implementations; Invoking a different function..
+       A.super.foo();  // or manage conflicts between the same method foo() in both A and C. Here calling the original default method belonging to interface A
+    }
+    public void bah() {
+       A.super.foo(); //original foo() from A accessed
+       C.super.foo(); //original foo() from C accessed
+    }
+		
+		public static void main()
+		{
+			ChildClass childClass = new ChildClass();
+		  childClass.bah();
+			childClass.foo();
+		}
+}
+
+O/p - Interface A's default method
+      Interface C's default method
+			Interface A's default method
+
+
+static methods --
+
+The problem with the default method, is to invoke them, ***there is an instance of a class that implements the interface
+needs to be created. Instead, for a static method we can simply call the method with Interface name similar to invoking the static methods belonging to a class.
+
+Eg: i1.staticMethod1();
+    i2.staticMethod2();
+
+Note: Static methods defined in the interface can not be ovverided in the implementing classes.
+
+
+
+3. Lambda Expressions + Functional Interface -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6
+4. Anonymous class implementing the interface -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6 
+5. Note down the words that telusko guy uses for Anonymous class vs Normal class
+What is an API? -- Application Packaging Interface -- Contains the varoius classes and interfaces in it.
+Collection API & Genrics
+1. collection -- concept
+2. Collections -- its a class defined in the Collecition API
+3. Collection -- Root interface of all the different types of collections available in this API. 
+
+Comparatator vs Comparable -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6
+
+Comparable -- 
+1. Its an interface, which a class needs to implement
+2. compareTo method definition needs to be provided
+  2.1 compareTo method returns interger.. +ve if greater, -ve less, 0 if equal
+3. Natural sorting i.e, Integer class implementes the Comparable interface.. So, by default when we invoke collection.sort(array of integers)	works..
+	
+Comparator
+1. its also an interface
+2. compare method(v1, v2) -- v1, and v2 are 2 values that are to be compared and result must be 
+  +ve, if v1>v2
+	-ve, if v1<v2
+3. Basically, the Collections -- class has a sort method which is overloaded to have the comparator -- i.e our own logic on what basis we want to compare
+
+Note: So, finally comparator is used to compare the objects based on our logic
+or if a class already implements the comparable interface(compareTo method).. then if not wishing to use the existing comparison.. 
+
+Eg: An arrayList of intergers/Strings are sorted automatically using Collections.sort() bcz,
+      Integer class implements Comparator interface(define toCompare(), to sort the elements in the asc order).
+
+
+Stream API in Java8
+
+All the above are explained in the Telusko playslist
+Link : 	https://www.youtube.com/playlist?list=PLsyeobzWxl7pFZoGT1NbZJpywedeyzyaf
+
+HashMap - internally how it works
+Stack vs Heap memory
+final vs finally vs finalize -- keywords in the exception handling inside Java.
+final -- access modifier. 
+         with variable -- Constant value. Can not change the value initialized at the time of declaration.
+		               -- Final Blank variables : The variables not intialized at the time of declaration. 
+					                               When try to print them will give compilation erros.
+                                                  We can only initialize such variables in default constructor alone.(https://www.tutorialspoint.com/what-is-blank-final-variable-what-are-static-blank-final-variables-in-java#:~:text=Blank%20variables,variables%20once%20you%20declare%20them.)												   
+		 with method -- Can not override
+		 with class -- can not extend
+finally -- is a block of code in the exception handling
+finalize -- method of the object class, invoked before the object gets removed via Automatic Garbage Collection
+
+Automatic Garbage Collection
+

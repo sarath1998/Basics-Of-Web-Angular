@@ -1,0 +1,127 @@
+Exception Handling in Spring 
+
+2 Annotations..
+
+@ExceptionHandler
+@ControllerAdvice
+
+In spring, handling exception is done by defining a method annotated with @ExceptionHandler.
+The @ExceptionHandler annotation has an attribute "value" .. which will hold the type of exceptions this method is responsible to handle.
+
+For eg:
+
+@Controller
+public class SampleController
+{
+   
+	 @RequestMapping("/hello")
+	 public String handleHelloIncomingRequests()
+	 {
+			if (1==1)
+	      throw new NullPointerException();
+			
+			return "helloPage"; // helloPage.jsp
+	 }
+	 
+	 @ExceptionHandler(value=Exception.class)
+   public String handleAnyException()
+   {
+		  System.out.println("Sample example for Handling an exception by defining the handler inside the same controller");
+			System.out.println("Inside the handleAnyException method");
+			return "exception"; // exception.jsp
+   }
+	 
+	 @ExceptionHandler(value= NullPointerException.class)
+   public String handleNullPointerException()
+   {
+		  System.out.println("Sample example for Handling an exception by defining the handler inside the same controller");
+			System.out.println("Inside the NullPointerException Handling method");
+			return "exception"; // exception.jsp
+   }
+}
+
+
+
+Note: Unlike the catch block exception hierarchy mechanism, in spring we do not need to follow any order of defining the exception Handler methods.
+For eg: In the above program, although the global class "Exception" handler is present on the top, when a NullPointerException comes then 
+handleNullPointerException() will be triggered.
+
+So, in spring its all about if there is any specific handling method is defined or not.
+
+
+
+
+
+
+Defining the Exception handling methods Globally
+
+
+Here comes the use @ControllerAdvice annotaion. We put this annotation at the class level. This will say that, the methods present inside the class are available
+to the entire application. 
+
+Why @ControllerAdvice?
+
+If this annotation is not available, then we have to define the Handling methods locally for every controller.. which is a tedious task..
+
+
+ONLY WE ADD THIS ANNOTATION ON THE TOP OF THE CLASS.. AND REST OF EXCEPTION HANDLING IS SAME AS LOCAL EXCEPTION HANDLING AS IN THE ABOVE CODE.
+By this way, we can define this Handling classes in seperate class/sperate pkg completely.
+
+
+Eg: 
+
+SampleController.java
+
+package com.selExp.controllers;
+
+@Controller
+public class SampleController
+{
+   
+	 @RequestMapping("/hello")
+	 public String handleHelloIncomingRequests()
+	 {
+			if (1==1)
+	      throw new NullPointerException();
+			
+			return "helloPage"; // helloPage.jsp
+	 }
+}
+
+
+EntireApplicationExceptionHandler.java
+
+package com.selExp.exceptions;
+
+@ControllerAdvice
+class EntireApplicationExceptionHandler
+{
+	@ExceptionHandler(value=Exception.class)
+   public String handleAnyException()
+   {
+		  System.out.println("Sample example for Handling an exception by defining the handler inside the same controller");
+			System.out.println("Inside the handleAnyException method");
+			return "exception"; // exception.jsp
+   }
+	 
+	 @ExceptionHandler(value= NullPointerException.class)
+   public String handleNullPointerException()
+   {
+		  System.out.println("Sample example for Handling an exception by defining the handler inside the same controller");
+			System.out.println("Inside the NullPointerException Handling method");
+			return "exception"; // exception.jsp
+   }
+	
+}
+
+
+
+Now, the spring will trigger the method present in EntireApplicationExceptionHandler.java file based on the type of exception.
+
+
+Note: @ControllerAdvice, is also a special type of Controller/Component.. hence there is no need of seperate annotation for the class.
+
+
+
+
+

@@ -1,0 +1,43 @@
+JDBC -- Java DataBase Connectivity.(DataBase + GUI(Java application) gets connecting)
+     -- Java API; to connect with the database & execute the query;
+
+JAVA API -- uses JDBC drivers, to connect to the Database;
+
+JDBC Driver -- Basically, driver is a software that allows us to use an application, 
+               and here the JDBC Driver is a software component that enables Java application to interact with the Database
+ 
+4 types of JDBC drivers --
+
+JDBC-ODBC Bridge Driver,
+Native Driver,
+Network Protocol Driver, and
+Thin Driver
+
+Why Should We Use JDBC API?
+
+Before JDBC, ODBC API was the database API to connect and execute the query with the database. But, ODBC API uses ODBC driver which is written in 
+C language (i.e. platform dependent and unsecured). That is why Java has defined its own API (JDBC API) that uses JDBC drivers (written in Java language).
+
+We can use JDBC API to handle database using Java program and can perform the following activities:
+
+1. Connect to the database
+2. Execute queries and update statements to the database
+3. Retrieve the result received from the database.
+
+Java Database Connectivity with 5 Steps:
+
+import the pkg -- java.sql.*
+Load the Driver 
+Register the Driver class -- After Java8, this step has became optional, putting vendor's Jar in the classpath
+                             the ****JDBC driver manager can detect and load the driver automatically.
+
+Eg: to register the Oracle Driver class:
+Class.forName("oracle.jdbc.driver.OracleDriver");  -- forName is a static method; hence only class 
+
+Create connection --  getConnection() method of DriverManager class is used to establish connection with the database.
+Note: Connection is an interface, so no straight object can be created.
+Eg: Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","password");  
+Create statement -- Statement stmt=con.createStatement();
+Execute queries -- ResultSet rs=stmt.executeQuery("select * from emp");
+Process the Result -- 
+Close connection -- con.close();  

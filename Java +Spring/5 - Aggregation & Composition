@@ -1,0 +1,237 @@
+2 types of Relationships in Java
+
+1. IS-A (Inheritance)
+2. HAS-A (Association)
+
+
+What is Association(HAS-A)?
+
+Its a relationship b/w 2 classes where one class ***stores the objects of another class as its instance variables thereby establishing a HAS-A association between the two classes.
+
+Again this Association is of 2 forms
+
+1. Aggregation (HAS-A)
+2. Composition (Belongs-to)
+
+
+1. What is Aggregation?
+
+One class can exist without the other class INDEPENDENTLY.
+is a Loosely coupled relation compared to Composition.
+Uni-directional relation.
+although both classes are associated with each other, ****one can exist without the other independently
+As the classes can exist independently, aggregation is also called as weak associaton.
+
+Eg: 
+Country class and a Sportsperson class.
+
+Country class
+-- size
+-- population
+-- capital
+-- list of Sportspersons
+
+Sportsperson class
+
+-- name
+-- age
+-- height
+-- weight
+
+In a real-world context, we can infer an association between a country and a sports person that hails from that country
+Now in OOP its transalted as, "a Country object has-a list of Sportsperson objects that are related to it"
+
+Here is how aggregation is translated for these objects:
+
+A sportsperson object can exist with his own attributes and methods, alone without the association with the country object. 
+Similarly, a country object can exist independently without any association to a sportsperson object.
+In, other words both Country and Sportsperson classes are independent although there is an association between them. 
+
+Technically,
+
+import java.util.*;
+//Country class
+class Country{
+private String name;
+List<SportPerson> sportPersons;
+  public Country(String name)  //to assign Country name
+  {
+    this.name = name;
+  }
+public void setSportPersons(List<SportPerson> sportPersons)  //To assign sportspeople
+{
+    this.sportPersons = sportPersons;
+}
+public List<String> getSportPersons()
+{
+  List<SportPerson> listOfSportPersons = this.sportPersons;
+  List<String> names = new ArrayList<String>();
+  for(SportPerson sportPerson : listOfSportPersons)
+  {
+      names.add(sportPerson.getName());
+  }
+  return names;
+}
+ 
+ public String getName()
+ {
+  return this.name;
+ }
+}
+//Sportsperson class
+class SportPerson{
+private String name;
+ public SportPerson(String name)  //to assign Sportsperson name
+{
+  this.name = name;
+}
+public String getName()
+{
+  return this.name;
+}
+}
+class Main {
+public static void main(String[] args) {
+  //Create three Sportsperson objects
+  SportPerson macculum = new SportPerson("Mccullum");
+  SportPerson dhoni = new SportPerson("Dhoni");
+  SportPersonk kohli = new SportPerson("Kohli");
+  //Create a country
+  Country india = new Country("India");
+  //Create a arraylist and add the sportspersons
+  List<SportPerson> listOfSportPersons = new ArrayList<SportPerson>();
+  sportPersons.add(macculum);
+  sportPersons.add(dhoni);
+  sportPersons.add(kohli);
+ 
+  //now add this list to Country Class
+  india.setSportPersons(listOfSportPersons);
+  //Outputting the Has-a association between Country and Sportsperson
+  System.out.println("The sports people from country " + india.getName() + " are " + india.getSportPersons());
+  
+}
+}
+
+
+In the above program,
+
+1. The implementation in the Main class is pretty straightforward. Three SportPerson objects are created and a Country object is created. 
+2. All the three SportPerson objects are added to the newly created list.
+3. This is the logical idea behind Aggregation, Sportsperson Class objects can exist independently of the Country class object i.e,
+   *****if Country object is to be deleted, it has no effect on the SportPerson and vice-versa.
+	 
+	 
+What is the use of Aggregation?
+
+****Code reusability. Since classes exist independently, The same classes can be ***reused to create associations with other classes****, 
+without having to modify an existing class, or without causing any issues to existing associations.
+
+
+
+
+2. Composition
+
+ one class, for all intents and purpose belongs to another class, and ***exists because of it. 
+ The classes cannot exist independent of each other.
+ If the larger class which holds the objects of the smaller class is removed, it also means logically the smaller class cannot exist
+ tightly coupled ;   Strong association;
+
+Eg: College and Student
+
+College class
+
+-- name 
+-- List<Student>
+
+Student class
+
+-- name
+-- College
+
+
+The association(relationship) is as below :
+
+Here a student must be studying in at least one college if he is to be called Student. 
+If the college class is removed, Student class cannot exist alone logically, because if a person is not studying in any college then he is not a student.
+
+
+import java.util.*;
+//College class
+class College{
+private String name;
+ArrayList<Student> studentList;
+public College(String name)  //to assign college name
+{
+   this.name = name;
+}
+public void setStudentList()  //To set Students list
+{
+    //Create three Student objects
+    Student student1 = new Student("Abe");
+    Student student2 = new Student("lincoln");
+    Student student3 = new Student("Abraham");
+    ArrayList<Student> students = new ArrayList<Student>();
+    students.add(student1);
+    students.add(student2);
+    students.add(student3);
+ 
+    this.studentList = students;
+}
+public String getName()
+{
+  return this.name;
+}
+public List<String> getStudentList() //To get students list
+{
+ List<Student> students = this.studentList;
+ List<String> names = new ArrayList<String>();
+ for(Student student : students)
+ {
+     names.add(student.getName());
+ }
+ return names;
+}
+}
+//Student class
+class Student{
+private String name;
+ public Student(String name)  //to assign Student name
+{
+  this.name = name;
+}
+public String getName()
+{
+  return this.name;
+}
+}
+class Main {
+public static void main(String[] args) {
+ //Create a College
+ College college1 = new College("MIB");
+ //set Student List in College Class
+ college1.setStudentList();
+ //Outputting the Has-a association between College and Student
+ System.out.println("The students studying in " + college1.getName() + " college are " + college1.getStudentList());
+}
+}
+
+
+In the above program : 
+
+The method setStudentList is defined, which created three students’ objects inside the College class and assigned them to the college studentList.
+So here, the Student class objects are created and stored ****internally in the College class, which creates a ****tightly bound association between the College and Student classes. 
+Because, if College class is removed, all student objects are removed as well.
+All the students are to be part of the class, no student can exist independently. And the result is outputted.
+Note here that no single student can exist without a college, but a college can exist without the student. Student is the dependent class.
+
+
+To conclude,
+
+One class is dependent on Another Independent class. The Dependent class cannot exist independently in the event of the non-existence of an independent class.
+
+Use of Code is not that reusable as the association is dependent. 
+Such Associations once established will create a dependency, and these associations cannot be reassigned or new associations like aggregation, etc 
+cannot be created ****without changing the existing class.
+
+
+Source Link : https://www.scaler.com/topics/association-composition-and-aggregation-in-java/

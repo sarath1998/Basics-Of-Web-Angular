@@ -1,0 +1,307 @@
+SDLC cycle
+
+planning&Requirement Gathering 
+Defining requirements
+Designing the Product architecture
+development, testing, Deployment& Maintanence
+
+
+Feature of Java: Simple to write, 
+                 OOP, 
+								 Portable/Platform Independent, 
+								 Secured, 
+								 Multithreaded...
+
+Properties of OOP: Object/class, 
+                   Inheritance, 
+									 Polymorphism, 
+									 Abstraction, 
+									 Encapsulation(Bean class).
+									 
+									 
+System.out.println: System is a "final" class in java.lang.pkg
+                    out -- An object of printStream type/class
+										       which is a static memeber of the System class													 
+									  println -- is a method of printStream class(https://www.geeksforgeeks.org/system-out-println-in-java/)
+
+object, -- is an instance of a class 
+        -- Has state(members) + behaviour(methods) + Identity(Unique ID used by JVM)
+All objects get memory in Heap memory area.
+
+Different ways to create an object in Java?
+
+1)By new keyword
+2)By newInstance() method
+3)By clone() method
+4)By deserialization
+5)By factory method etc.
+
+Platform Independet -- https://medium.com/@neil.wilston123/why-java-is-platform-independent-1d82c2249a69
+
+JAVA Interpreter -- https://www.javatpoint.com/java-interpreter
+
+JDK vs JRE (https://www.geeksforgeeks.org/differences-jdk-jre-jvm/)
+
+JDK -- Software Development Kit for developing & running Java applications.
+    -- comprise of Java Runtime Env(JRE)
+		               Interpreter/Loader(Java)
+									 Compiler(javac)
+									 Archiver(JAR)
+									 Document Generator(Javadoc)
+								and other tools.
+								
+	Now, again the JRE contains
+	                -- Java Virtual Machine(JVM) : Its simply specification(i.e like an interface containing the methods). The implementor can have their own logic.
+									                               For eg: Sun Microsystems/Amzon correto JDK are the implementations of JDK having their own algorithmic logic
+																								 Note: Its similar like JPA(the specification provider) and the Hibernate or Mybatis(Implementors)
+									-- Core classes
+									-- Supporting files
+
+Note: JVM is the one that executes the code. Its mainly responsible for 3 things:
+ Loading
+ Linking
+ Initialization
+
+
+
+Abstraction --- abstract key word for classes and method (0 to 100%)
+                interface (100%)
+
+				
+Framework -- an essential supporting structure of a building, vehicle, or object.
+             a basic structure underlying a system, concept, or text.
+			 
+Constructor -- It's also a method and is primarily meant for initializaton of object
+			      -- A constructor is invoked at the ***time of object creation  (Its purpose is for Initialization, but only invokes at the time of Object creation)
+						   Note: Object creation = Memory Allocation + Object initialization
+            -- Used for ***initalization of members of an object
+			      -- It is not mandatory to define a constructor, as JVM automatically 
+			         puts a default constructor(no-arg constructor) only when a user does not define any constructor
+			      -- A **default constructor is meant for initalizing the memebers with the default values
+			         based on the data type like 0, null, etc.,
+			-- Rules
+			   3) Non-access modifiers are not allowed(static, abstract, final, and synchronized) should not be used
+			      
+					  static   -- as counstructor is purely an object dependant, static does not apply
+						abstract -- does not apply, as we must have definition for the constructor.
+				    final    -- child class inherits all the members of the superclass except the constructors. 
+					            In other words, constructors cannot be inherited in Java therefore you 
+										  cannot override constructors. So, writing final before constructors 
+											makes no sense.
+											
+			   1) name should match with class.
+			   2) Should not have any **return type in the method signature.(inlcuding the keyword void)
+			-- Note: A constructor will return the current instance of the class,
+               even tough it does not have any return type mentioned.
+					 (Does constructor return any value? -- https://www.javatpoint.com/java-constructor)
+			-- nOTE: A constructor can have the access modifiers(private -- Used for Singleton class 
+			                                                     protected, public, default(no keyword)
+			   See below program
+			    the output of the following Java program?
+class Test   
+{  
+    int test_a, test_b;  // No default constructor defined
+    Test(int a, int b)   
+    {  
+    test_a = a;   
+    test_b = b;   
+    }  
+    public static void main (String args[])   
+    {  
+        Test test = new Test();   -- Error: Here no parameters are passed, so default constructor should be invoked
+				                                    but no default constructor is defined. So system throws error.
+																						i.e, when a parameterized constructor is defined, then it is responsibility
+																						of the user to define the default constructor as the compiler will not introduce
+																						any default constructor.
+        System.out.println(test.test_a+" "+test.test_b);  
+    }  
+}  
+
+(https://stackoverflow.com/questions/12798416/when-is-mandatory-to-have-a-default-constructor-along-with-parameterized-constru)
+			 
+super -- its actually a reference variable that refers the immediate parent class instance variable
+         Since, its a reference variable fot the immediate parent class, we can use to invoke 
+		 the parent class method like super.xyz()
+		 
+         super() -- Super method() will invoke the immediate parent class constructor. 
+		             -- This should be in first line when invoking the parent class constructor 
+				            inside the child class constructor
+					
+Constructor call(of the parent/same class) must be the first statement in a constructor [duplicate]
+(https://stackoverflow.com/questions/20198279/constructor-call-must-be-the-first-statement-in-a-constructor)
+		 
+Static keyword
+
+Static -- Variable
+       -- Method
+       -- Block
+       -- Nested class
+
+Static variable -- is created only once when the class is loaded.
+                -- Saves memory. For Eg: in a college of 500 students, if every object contains the
+                    roll No, college Name. Since, the college Name is same for all the students
+                    instead of having it memory in all the objects,	we can use a static variable.
+				-- Can be accessed with or Without any class Name
+     For Eg: class sample
+             {	 
+				static int x = 20;
+				int y = 23;
+                void print()
+			    {
+			      System.out.println(sample.x +" "+x); // Here non static method accessing a static variable 
+				                                       // with class Name and with out class name
+			    }
+				public static void main(String args[])
+				{
+				  sample s = new sample();
+				  s.print(); // a static method(***main()) can not directly invoke the non-static method.
+				                Must have a instance referece prefixed at the time of method invoke
+						System.out.println(y); //  a static method	can not even directly access non-static variable	-- error
+				}
+			}
+
+static method -- can not access/invoke a not-static data/non-static method ***directly
+              -- can call other static method directly/access the static data directly
+              -- should have a object reference prefixed when calling non static method/or accessing non-static data
+			  
+				Eg: public class sample
+                   {	 
+						int x = 20;
+						void print()
+						{
+						  System.out.println(this.x +" "+x);// -- Here non static method accessing variable direcly
+															   -- Accessing the variable using this keyword which is a reference
+															      for the current object that invokes print()
+															   -- "this" is passed by default
+						}
+						public static void main(String args[])
+						{
+						  sample s = new sample();            //A static method(main()) can not directly invoke the non-static method.
+						  System.out.println(s.x +" ");       // Must have a instance referece prefixed at the time of non static data access
+						  s.print();                          // Must have a instance referece prefixed at the time of non static method invoke 
+									   
+						}
+					}
+
+static block -- will be executed even before the constructor(i.e, before the main() as the object creation happens inside the main()
+															 or inside the method that is invoked from main())
+			 -- Used to initialize a static data memeber
+			 -- If a static variable just declared and not initalized, then if the initalization is required
+			 -- to happen prior to any object creation, then we can use a static block.
+			 
+Can we execute a program without main() method?
+
+No, one of the ways was the static block, but it was possible till JDK 1.6. 
+Since JDK 1.7, it is not possible to execute a Java class without the main method.
+
+Eg: class A3
+    {  
+      static
+	  {  
+		System.out.println("static block is invoked");  
+		System.exit(0);  
+	  }  
+	}
+
+Instance Initializer block -- https://www.geeksforgeeks.org/instance-initialization-block-iib-java/
+
+Types of inheritance
+
+Single inheritance
+Multi level inheritance
+Hierarical inheritance
+Multiple Inheritance -- supported through interface only
+Hybrid inheritance -- supported through interface only
+
+Final Keyword
+
+final -- 1) variable -- stop changing the value 
+         2) method -- stop METHOD OVERRIDING (final means, No changes.. for a method it can be possible only via method overriding. Hence overriding is not allowed)
+		     3) class -- STOP INHERITANCE
+
+final variable -- if not initialized at the time of declaration itself, 
+                  then should be initialized only in the constructor.
+			   
+			   -- A final variable can be static as well, if a static final variable
+			      is not initialized at the time of declaration, then 
+				  only be initialized only in the static block
+
+Eg : Blank final variable in constructor gets initalized			  
+class Bike10{  
+  final int speedlimit;//blank final variable  
+    
+  Bike10(){  
+  speedlimit=70;  -- blank final variable getting initialized
+  System.out.println(speedlimit);  
+  }  
+  
+  public static void main(String args[]){  
+    new Bike10();  
+ }  
+}  
+
+Eg : Static blank final variable gets initialized in the static block
+class A{  
+  static final int data;//static blank final variable  
+  static{ data=50;}   -- getting initialized
+  public static void main(String args[]){  
+    System.out.println(A.data);  
+ }  
+}  
+				  
+final method  -- A final method is inherited, that means we can invoke the parent class method using
+                 child class object 
+			        -- Not allowed to override at all
+
+
+Method overloading -- requires 1 class only
+
+     1. 2 methods with same name differs based on the "No of parameters/type of parameters"
+		 Note: ** Method overloading is not possible with return type
+
+Method Overloading and Type Promotion : https://www.javatpoint.com/method-overloading-in-java#:~:text=Method%20Overloading%20and%20Type%20Promotion
+
+
+
+Method overriding -- ***Min 2 classes + Inheritance must exist
+
+Rules of Method overriding -- Same method name
+                           -- Same parameters
+                           -- ***Access Modifiers need not be same.The overriding method in 
+													    subclass must **not be more restrictive
+                              to the source method in the base class
+													 -- In case of overloading, the access modifiers ***should be same
+
+Polymorphism -- Compile time polymorphism -- early binding -- Can be achieved through method overloading
+								Run time polymorphism -- late binding -- Through method overriding
+
+static binding -- When type of the object is determined at compiled time(by the compiler), 
+                  it is known as static binding.
+				          If there is any private, final or static method in a class, 
+									there is static binding.
+							 -- private -- private is restricted to same class, so not possible to override
+							               so compiler need not to do further process
+													-- ***In this case we can define a method in the subclass with the same
+													   signature as in the parent class. When invoked using the child class
+														 object then subclass method will be invoked.
+											    -- Note that, we are not using any ***@Override annotation in the subclass.
+													(https://javapapers.com/core-java/can-a-java-subclass-declare-a-private-method-available-in-its-java-superclass/)
+													   
+							 -- final    -- No overriding is possible.
+							 -- static   -- static methods are not constrained to any object. They
+							                are global classes.
+
+
+What is the purpose of the finalize() method?
+1. https://www.javatpoint.com/corejava-interview-questions-2
+2. https://www.javatpoint.com/corejava-interview-questions-2#:~:text=More%20details.-,180)%20What%20is%20gc()%3F,-The%20gc()%20method
+3. https://www.javatpoint.com/corejava-interview-questions-2#:~:text=How%20can%20an%20object%20be%20unreferenced%3F
+
+
+What is the reason behind "non-static method cannot be referenced from a static context"? [duplicate]
+(https://stackoverflow.com/questions/290884/what-is-the-reason-behind-non-static-method-cannot-be-referenced-from-a-static)
+In Java, How many ways you can take input from the console?(https://www.javatpoint.com/corejava-interview-questions-2)
+What is a singleton class? 
+
+
+https://www.javatpoint.com/corejava-interview-questions -- Core Java Interview Questions
