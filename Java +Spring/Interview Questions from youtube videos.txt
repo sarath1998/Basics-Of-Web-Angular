@@ -1,0 +1,47 @@
+States of a Thread
+Collection vs Collections
+ArrayList vs LinkedList, in which scenarios either of them is preferred?
+Internal implementation of the HashMap -- Hashing + Buckets
+Comparatator vs Comparable .. when to use either of them?
+Marker Interface, What's the use of it, when its empty?
+Functional Interface
+2 interface with same default method name and method signature, 
+then how to invoke the interface1's default method? -- say the default method name is sample.. 
+     how to invoke the interface1's static method ?
+	 
+Why String's are immutable? 
+How to create a immutable class?
+ Ans : private fields. Should be initalized in a constructor. Only getters and no setters
+StringBuffer vs StringBuilder
+Which type of sort happens using Collections.sort()?
+When does a thread goes to waiting state?
+Ans: Say a thread A expects a value from Queue. But Queue is empty, then Thread A goes to waiting state. Soon, the other thread B initializes the queue
+and then notify the thread A, then thread again moves from Waiting to Runnable and then once memory is available, Runnable to Running. 
+
+
+SpringBoot
+
+How to exclude the AutoConfiguration of a class in Springboot
+@SpringBootApplication -- explain this annotation
+Different levels of the log in a SpringbootApplication
+Ans : 4 lvls... DEBUG, Trace, 
+YAML.properties vs Spring.properties -- which is preferred when? when the yaml needs to be used or when the spring.properties needs to be used
+Default port, on which the server gets started ? 
+Can we change the default port of server.. if yes, how.. -- server.port in spring.properties
+Can we switch the server from tomcat to any other server? How?
+How to initiate the 2 different data sources?
+List out the annotations used in the sample spring boot application for data insertion/Rest application?
+Exception Handling in a SpringBootApplication
+Is it possible to add a jar not available in the Maven repo to the Springboot application? If yes? how?
+SOLID Principles
+S - The Single Responsibility Principle
+O - The Open-Closed Principle 
+L - The Liskov Substitution Principle
+I - The Interface Segregation Principle 
+D - The Dependency Inversion Principle
+
+Why its preferred to use the @Repository even the @Component works over a DAO class.. Similarly the @Service even the @Component works
+ -- Refer the Selenium express video.. @Repository vs @Service
+ Ans: In brief.. Exception Handling
+ 
+

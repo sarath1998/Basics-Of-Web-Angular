@@ -275,3 +275,7 @@ Ans: Say a thread A expects a value from Queue. But Queue is empty, then Thread 
      and then notify the thread A, then thread again moves from Waiting to Runnable and then once memory is available, Runnable to Running.  
 
 8. What is meant by Thread safe?		 -- https://stackoverflow.com/questions/2033879/what-does-threadsafe-mean#:~:text=has%20a%20nice%20blog%20post%20entitled
+9. run() does not return any value? So what needs to be done to capture the return value from a Thread? 
+   9.1 . Callable interface ! call() vs run() -- https://www.javatpoint.com/java-callable-example
+   9.2 FutureTask class and Future interface
+   
