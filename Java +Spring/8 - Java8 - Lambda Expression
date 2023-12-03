@@ -1252,6 +1252,7 @@ Eg 1:
 	
 	
 	Signature :
+	
 	@FunctionalInterface
 	public interface UnaryOperator<T> extends Function<T, T> 
 	{
@@ -1263,7 +1264,6 @@ Eg 1:
     0. The type argument of the UnaryOperator has only type argument "T" which will indicate the return type and the argument type are same.
 	1. It extends the "Function" functional interface.
 	2. So no additional abstract method of its own is declared in it.. as @FunctionalInterface must contain only 1 abstract method.
-	3. contains a static method identity()
 	
 	
 	Eg 1: Calculate the square of the number 
@@ -1304,7 +1304,7 @@ public interface BinaryOperator<T> extends BiFunction<T,T,T>
 {
 }
  
- 1. BinaryOperator is a Functional interface which has the same type argument.. so only one type argument is used instead of 3 as in the Function
+ 1. BinaryOperator is a Functional interface which has the same type argument.. so only one type argument is used instead of 3 as in the BiFunction
  2. No explicit abstract method declared inside the BinaryOperator interface, as this interface extends the BiFunction and therefore
     implicitly inherit the accept(T t1, T t2) of the parent class.
  3. This is again a Functional interface.. and can hold multiple default and static methods.. Google it to see complete info.
@@ -1337,33 +1337,187 @@ O/p : -2
  
  
  
+ Method & Constructor reference by using "::" operator
+ 
+ :: -- symbolise that we're doing the reference operation.
+ 
+ Useful only for the functional/SAM interface.
+ 
+ Till now, the abstract method of a SAM interface is defined in the following ways: 
+  
+  1. Another class implementing the interface and provide the method definition.
+  2. Using Lambda expression.
+  
+  There is also another way..
+  
+  3. Method reference and constructor reference
+
+
+  How different from regular Lamda expression?
+
+  Let's assume a scenario, where 
+  
+   1. There is a Functional interface with an abstract method.  
+   2. Main class, with a method having some definition.
+   
+   Now, if this above method definition suites for the abstract method, we re-write the code either using the 1 or 2 mechanism. Instead,
+   if we can tell the compiler to take the code that is already defined in the another method .. 
+   
+    that would reduce the redudandt code and improve the ****code re-usability.
+	
+	
+	This can be achieved by ::operator.
+	
+	Pre-requisites:
+	
+	1. The source abstract method arguments type and count should match the target method's arguments.
+	2. No need to bother about the return type, access modifier or static etc.,
+	
+	Only the method arguuments is considered.
+	
+	
+	2 types of referencing:
+	
+	1. Method referencing
+	  1.1 Static method referencing
+	   
+	    Syntax: 
+		
+		Sample f1 = className :: staticMethodName;
+	         
+	  1.2 Instance method referencing
+	  
+	    Syntax: Object :: instanceMethodName;
+	  
+	2. Constructor referencing.
+   
+		
+ 
+ 
+ Eg1: Lamda expression vs :: operator(Method referencing)
+ 
+ 
+ 
+ With LAMDA expresssion:
+ 
+ 
+ interface I1
+{
+	public void sum(int a, int b);
+}
+
+public class Sample
+{
+	public void add2Numbers()
+	{
+		System.out.println("Add 2 numbers method");
+	}
+
+	public int sumOf2Numbers(int a, int b)
+	{
+		System.out.println("inside the sumOf2Numbers ()");
+		System.out.println("a,b "+a+" "+b);
+		return a+b;
+	}
+	public static void main(String args[])
+	{
+		I1 obj1 = (a, b) -> {
+								System.out.println("inside the sumOf2Numbers ()");
+								System.out.println("a,b "+a+" "+b);
+								return a+b;
+		                    };
+		obj1.sum(3, 4);
+	}
+}
+ 
+ 
+O/p - 
+inside the sumOf2Numbers ()
+a,b 3 4
+
+Now with the method reference,
+ 
+ 
+interface I1
+{
+	public void sum(int a, int b);
+}
+
+public class Sample
+{
+	public void add2Numbers()
+	{
+		System.out.println("Add 2 numbers method");
+	}
+
+	public int sumOf2Numbers(int a, int b)
+	{
+		System.out.println("inside the sumOf2Numbers ()");
+		System.out.println("a,b "+a+" "+b);
+		return a+b;
+	}
+
+	public static void main(String args[])
+	{
+
+		Sample s1 = new Sample();	  
+		I1 obj1 = s1 :: sumOf2Numbers;
+		obj1.sum(3, 4);
+	}
+}
+ 
+ 
+O/p - 
+inside the sumOf2Numbers ()
+a,b 3 4
  
  
  
  
+ To observe:
+ 
+ Line 1422 : contains the ::, which says to the compiler to refer the sumOf2Numbers() definition
+             No () are mentioned after sumOf2Numbers
+			 sumOf2Numbers has return type but the add2Numbers() has no return type.
+			 Since, its instance method reference, firstly instance is created followed by reference is done w.r.t the object
  
  
  
  
+ In case of static method reference,
  
  
  
+ interface I1
+{
+	public void sum(int a, int b);
+}
+
+public class Sample
+{
+	public void add2Numbers()
+	{
+		System.out.println("Add 2 numbers method");
+	}
+
+	public static double sumOf2Numbers(int a, int b)
+	{
+		System.out.println("inside the sumOf2Numbers ()");
+		System.out.println("a,b "+a+" "+b);
+		return (double)a+b;
+	}
+
+	public static void main(String args[])
+	{
+		I1 obj1 = Sample :: sumOf2Numbers;
+		obj1.sum(3, 4);
+	}
+}
  
+ To observe,
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+ Line 1512 -- Only class name is used to refer the sumOf2Numbers instad of instance/object reference variable.
+              a static method is being referred for a non-static method.. and it worked bcz the argument types and count matches.  
  
  
  
@@ -1431,3 +1585,128 @@ it accepts 2 params:
  So, when passed 10, 20 to the compare(), 
  
  and the expectation is descending order.. return +ve number..
+
+
+
+
+
+Streams -- Collection Streams
+
+--pkg : java.util.*;
+
+
+Various Methods inside Stream:
+
+
+collect()
+count()
+sorted()
+  2 versions:
+  sorted()
+  sorted(comaparator c)
+  
+min(comparator c)
+
+  As we know, to fetch a min or max value, the given elements must be in a sorted order. therefore, the min() accepts a comparator object 
+  such that the elements will be sorted based on it and then return the minimum value.
+  
+  -- min() is a terminal operation. So after executing min() on a stream, no further intermediate operations are possible. If tried then compiler will throw
+  "java.lang.IllegalStateException: stream has already been operated upon or closed"
+  
+  Note: the return type of this method is wrapped by Optional class.
+  
+  
+  
+  
+  
+  Method signature : 
+   
+   Optional<T> min(Comparator<? super T> comparator);
+   
+           T -- stands for the type of the input elements.
+           Optional<T> -- it says, the return element is wrapped by a Optional object. we have to invoke Optional class internal method
+                          to fetch the actual value wrapped inside it.
+   
+   Eg 1: Fetch the minimum value from the given list of elements
+   
+   
+	import java.util.Arrays;
+	import java.util.List;
+	import java.util.Optional;
+	import java.util.stream.Stream;
+
+	public class Sample
+	{
+		public static void main(String args[])
+		{
+			List<Integer> myList = Arrays.asList(10,15,8,49,25,98,98,32,15);
+			Stream<Integer> integer = myList.stream();
+			Stream<Integer> sortedStream = integer.sorted();
+			Optional<Integer> min = sortedStream.min(Integer::compareTo);
+			Integer integer2 = min.get();
+			System.out.println("Integer2 :"+integer2);
+		}
+	}
+	
+	To observe,
+	
+	-- stored every operation output into a separate local variabl to know the return types and its values how it looks like.
+	-- Line 1641, invoked sorted() -- [telling compiler to use natural sorting that can be applicable for the given type of elements] . 
+	    Note that, sorted is an intermediate op, so it returns a stream again.
+	-- Line 1642, contains actual min() .. Used method referencing concept here.. 
+	     Integer::compareTo -- compareTo is a static method of the Integer class. We told compiler to use the same method for finding the minimum element
+	-- since its a terminal op, it returns a single value but wrapped in a Optional class.
+	-- Line 1643, get() will give the actual value present inside the Optional class.
+	
+  
+
+max(comparator c)
+
+Same as min()
+
+forEach()
+
+  -- Accepts a Consumer functional interface object, which contains the method definition for the accept method through lamdba expression or method reference.
+  -- It is invoked on the top of the Stream instance and operation provided will be applied on each element present inside the stream.
+  -- Terminal operation. So after executing this method on the stream, we can not do any intermediate operation on the stream.
+
+	Method Signature :
+
+	void forEach(Consumer<? super T> action);
+	
+	
+	-- return type : void.. so it returns nothing.
+	
+For eg: Print every element of the stream
+
+
+  public class Sample
+  {
+	public static void main(String args[])
+	{
+		Stream<Integer> s = Stream.of(1,2,3,4,5,6,7,8);
+		s.forEach(System.out::println);
+	}
+  }
+  
+  O/p -- 1
+		 2
+		 3
+		 4
+		 5
+		 6
+		 7
+		 8
+		 
+
+  To Observe,
+     
+    -- Line 1687, contains the of(), which helps to create a stream on some random group of elements.
+         This way, we can avoid the dependency over the collections for creating the stream.
+    -- Line 1688, forEach() accepts a static method reference.. invoking the println() method for every element present in the stream as that is the operation 
+          we mentioned for the compiler to perform.
+    		  
+			  
+
+
+Streams programming questions practice : https://blog.devgenius.io/java-8-coding-and-programming-interview-questions-and-answers-62512c44f062
