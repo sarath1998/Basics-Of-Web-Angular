@@ -1,0 +1,164 @@
+Serialization 
+
+ -- Process of writing the State of an Object to a File is called the Serialization.
+ i.e Java supported form --> either File supported form or Network supported form
+ 
+ -- FileOutputStream & ObjectOutputStream classes can be used to perform the Serialization.
+ 
+ 
+ Purpose of those Stream classes :
+ 
+   FileOutputStream -- writes the binary data into the file.
+   ObjectOutputStream -- converts the high level language to binary data.
+   
+   
+   ***So, the target file after serialization contains the binary form of the data.
+ 
+
+DeSerialization
+
+ -- Process of **Reading the state of an Object from a file is call the DeSerialization.
+   i.e File Supported from --> Java supported form
+   
+ -- FileInputStream & ObjectInputStream class can be used to achieve the DeSerialization.  
+ 
+ 
+ Purpose of those Stream classes :
+ 
+  FileInputStream -- Reads the binary data from the target file.
+  ObjectInputStream -- Converts the binary data into the Java object
+  
+  
+  
+ Note: TO perform the serialization/deserialization on a class, that class should implement the Serializable interface.
+       As we involve streams, which are useful for dealing with files.. java expects the programmer to write the checked exception. 
+            i.e. throws Exception	   
+  
+  
+  
+  Eg 1: Performing the Serialization and DeSerialization on the Dog class.
+  
+  
+    // Implements the Serializable interface, as this is the class on which we want to perform the Serialization and DeSerialization
+	
+    class Dog implements Serializable
+	{
+	  int i = 10;
+	  int j = 20;
+	}
+	class Sample 
+	{
+	  public static void main(String args[]) throws Exception
+	  {
+	    Dog d1 = new Dog();
+		
+		/* Serialization, .java ---> File with nme fos and extension .txt will be generated in the same directory where the program file resides. 
+		*/
+		FileOutputStream fos = new FileOutputStream("fos.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(foo);
+		oos.writeObject(d1);
+		
+		/*
+		  De-Serialization,  File --> .java
+		*/
+		FileInputStream fis = new FileInputStream("fos.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		Object obj = ois.readObject();
+		Dog d2 = (Dog) obj;
+		sysout("i, j values after de-serialization: "+d2.i+", "+d2.j);
+	  }
+	}
+	
+	O/p -- After serialization, a new file with .txt extension & with file name fos, containing the binary format of the Dog objec's data
+           will be generated in the same directory where this Sample.java file existis.
+		  
+		  After DeSerialization,
+                i, j values after de-serialization: 10,20
+		
+	To Observe,
+	   
+	    1. Since Dog class is the one that gets serialized or De-serialized.. it implements the Serializable interface.
+		2. Since Serializable is a marker interface, no methods to override inside the Dog class.
+		3. User can give the file name and the extension as per his wish.. there is no standard defined for the extension nor the file name.
+		4. Line 66, returns the Object type.. therefore we need to do downcast it to the Dog class explicitly in th linr 67.
+		
+		
+	
+	What are we trying to achieve in Serialization and De-Serialization?
+	
+	 -- State of an object is being transferred over the network via files and then de-serialized at the destination system.
+	 -- Since we're dealing with the state of the object, that means no static variables will participate in the serialization.. as they are not related to object level.
+	   For eg: Say there is  Dog class with 2 variables,
+	               Static & not-static variable.. then only the non-static variable is passed in the file.. and at the destination system
+				   both the variable values will be still available.
+				   
+	  -- final variable will participate by value in the serialization process unlike the regular non-static variables which will participate using the variable fashion.
+	  
+	  
+	  transient keyword
+	  
+	  
+	  
+	  Eg:  transient int x = 10;
+	  
+	  -- transient keyword is applicable for the variables only.
+	  -- we use this keyword before the instance variables, which is not expected to get serialized. instead of the actual value of that variable,
+	      the default value is passed based on the type of the variable.
+		  
+		  import java.io.*;
+
+class MyClass implements Serializable {
+    private transient int transientVariable; // This variable won't be serialized
+    private int regularVariable;
+
+    public MyClass(int transientVariable, int regularVariable) {
+        this.transientVariable = transientVariable;
+        this.regularVariable = regularVariable;
+    }
+
+    public void displayVariables() {
+        System.out.println("Transient Variable: " + transientVariable);
+        System.out.println("Regular Variable: " + regularVariable);
+    }
+}
+
+public class SerializationExample {
+    public static void main(String[] args) {
+        // Serialization
+        try {
+            MyClass obj = new MyClass(10, 20);
+            obj.displayVariables();
+
+            // Serialize the object
+            FileOutputStream fileOut = new FileOutputStream("object.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(obj);
+            out.close();
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Deserialization
+        try {
+            MyClass newObj;
+            FileInputStream fileIn = new FileInputStream("object.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            newObj = (MyClass) in.readObject();
+            in.close();
+            fileIn.close();
+
+            newObj.displayVariables(); // Transient variable won't be serialized
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+In this example, transientVariable is marked as transient. When the MyClass object is serialized and then deserialized, 
+the transientVariable won't retain its value because it is not serialized. On the other hand, regularVariable will be serialized and deserialized as usual since it's not marked as transient.
+				   
+				 
+	 
+	 -- A transient keyword for a static variable is useless, bcz the static variables will not participate in the serilization process at all.

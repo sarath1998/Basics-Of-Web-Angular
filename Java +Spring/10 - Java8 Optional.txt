@@ -1,0 +1,176 @@
+Java8 - Optional class
+
+ -- Pkg name: Java.util
+ -- Java8 feature
+
+ -- The Optional class in Java 8 is a ***container object which is used to contain a value that might or might not be present. 
+       
+	   Container means oka dabba laaga edi pedite adi untundi andulo em pettaka pote em undadu.
+ -- Optional is a container that either contains a non-null value or nothing(empty Optional)
+	   
+ -- introdcuced to reduce the number of NullPointerExceptions that occur in Java code.
+ 
+ -- One of the key benefits of using Optional is that it forces you to handle the case where the value is absent i.e This means that you are less likely to miss important 
+ checks in your code and reduces the risk of NullPointerException. If a value is not present, you can either provide a default value or throw an exception.
+ 
+ Eg 1: 
+ 
+   public class Main {
+    public static void main(String[] args) {
+
+        Student Student = getStudentWithName("hamza");
+        System.out.println(Student.getName());
+
+    }
+
+    public  static Student  getStudentWithName(String name ){
+        // lets suppose that our database contain only 2 students ahmed and hamza .
+        if (name.equals("hamza") || name.equals("ahmed")) {
+            return new Student(name , 22 , "Morocco");
+        } else {
+            return null ;
+        }
+    }
+}
+ 
+ It’s obvious that getStudentWithName() can return a null if there is no student with the given name => NullPointerException will occur when we call the getName() method (student = null ).
+ 
+ To handle this case, we should implement some form of conditional logic based on the result returned by the method.
+ 
+ public class Main {
+    public static void main(String[] args) {
+
+        Student Student = getStudentWithName("hamza");
+        if(student != null){
+             System.out.println(Student.getName());
+        }else {
+          System.out.println("no Student with the given name ");
+        }
+
+    }
+
+   public  static Student  getStudentWithName(String name ){
+        // lets suppose that our database contain only 2 students ahmed and hamza .
+        if (name.equals("hamza") || name.equals("ahmed")) {
+            return new Student(name , 22 , "Morocco");
+        } else {
+            return null ;
+        }
+    }
+
+}
+
+Now, let's see the Optionl style of avoiding the NullPointetException/checking the null values
+
+
+   Below are the 3 methods that allow to create the Optional class instance/object. They are as follows:
+   
+     ofNullable(T)
+	 of(T)
+	 empty()
+	 
+	 Note: All of them are the static methods by nature and therefore we can simply trigger them on the top of the Optional class.
+	       We can not create the Optional instance by using new keyword. 
+	 
+	 
+	 
+
+   1. Optional.ofNullable(T) -- Accepts both a null and non-null object and wraps tha input value and returns a Optional instance.
+   
+   
+   2. Optional.of(T) -- This method behave like the ofNullable() function it will return an Optional for the given value the only difference is that the of() method 
+                        does not allow to construct an Optional object around a null value .
+						
+						For eg:  Optional<Student> student = Optional.of(null);
+						
+						O/p -- NullPointerException
+						
+						
+   3. Optional.empty() -- returns an empty Optinal object i.e as said in the very first an Optional class is a container that will hold nothing.. which means empty.
+   
+     Note: Optional.empty() == Optional.ofNullable(null)
+	 
+	 Explaation: since null means nothing.. there both are same.
+	 
+	
+	
+The above code is now, **refactored** with the **Optional class..
+	
+	public class Main {
+    public static void main(String[] args) {
+        Optional<Student> student = Optional.ofNullable(getStudentWithName("hamza"));
+        if (student.isPresent()) {
+            System.out.println(student.get().getName());
+        } else {
+            System.out.println("Student  is not present");
+        }
+    }
+
+   public  static Student  getStudentWithName(String name ){
+        // lets suppose that our database contain only 2 students ahmed and hamza .
+        if (name.equals("hamza") || name.equals("ahmed")) {
+            return new Student(name , 22 , "Morocco");
+        } else {
+            return null ;
+        }
+    }
+
+}
+
+   To observe,
+          
+		    get() -- an Optional class static method, useful to fetch the value.
+			
+
+
+    Of course, there are still if-else blocks in this logic, but let’s examine other useful methods provided by the Optional API to reduce its use. Below are the methods:
+	
+	  1. orElse() --  is a method in the Java Optional class that is used to return the value wrapped in the Optional, if it is present, or a default value if it is not.
+	  
+	  
+	    Let's re-write the above code :
+		
+		 public class Main {
+    public static void main(String[] args) {
+        Student  student = Optional.ofNullable(getStudentWithName("hamza")).orElse(new Student("no one", 0, "Unknown"));
+            System.out.println(student.getName());
+    }
+
+    public  static Student  getStudentWithName(String name ){
+        // lets suppose that our database contain only 2 students ahmed and hamza .
+        if (name.equals("hamza") || name.equals("ahmed")) {
+            return new Student(name , 22 , "Morocco");
+        } else {
+            return null ;
+        }
+    }
+   }
+   
+   To Observe: In line 135, in orElse() we passed the default value.. Since here we're wrapping the Student object inside the container(i.e Wrapper class), so tha default
+   value also needs to be a Student type.. hence we create a new object of it.. So when ever there is a null value return the default value passed to the object.
+   
+	  
+	  2. orElseThrow() -- used to throw an exception if the Optional is empty.
+   
+    public class Main {
+    public static void main(String[] args) throws StudentNotFoundException {
+        Student  student = Optional.ofNullable(getStudentWithName("fs")).orElseThrow(()-> new StudentNotFoundException("the Student is not Present "));
+            System.out.println(student.getName());
+    }
+
+    public  static Student  getStudentWithName(String name ){
+        // lets suppose that our database contain only 2 students ahmed and hamza .
+        if (name.equals("hamza") || name.equals("ahmed")) {
+            return new Student(name , 22 , "Morocco");
+        } else {
+            return null ;
+        }
+    }
+
+}
+
+To observe, unlike orElse().. here ine Line 157, a lamda expression is used.. to throw the exception. In this case, the StudentNotFoundException is a user-defined exception
+We can also the throw the in-built exceptions as well.
+
+
+    
