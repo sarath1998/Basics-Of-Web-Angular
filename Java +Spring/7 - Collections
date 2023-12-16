@@ -25,7 +25,61 @@ List
 	           -- Can have duplicate elements
 			   -- Maintains the order of the elements
 			   -- Non Synchronized
-				 -- Can hold null objects..as duplicate is allowed, we can store more than 1 null object
+			   -- Can hold null objects..as duplicate is allowed, we can store more than 1 null object.
+			   
+			   
+	ArrayList vs Arrays.list(<array of elements>)
+	
+	
+	We know, the ArrayList is primarily used for Structural changes i.e Dynamically change the size based on element insertion/Deletion. Here we do not mention
+	any size in the initial creation.. Therefore, the compiler will allocte some memory initially but later if the list is full it automatically allocates further memory
+	and then allows for further insertions.
+	
+	Arrays.asList(<array>) -- will also return the ****fixed-size array list**** view of the given array of objects.. Since it's a fixed size list, so any structural change on this list is not allowed.
+	Structural change means.. increasing or decreasing the size of the list.. The Compiler will throw the "UnsupportedActionException" when adding or deleting the elements in the list
+	returned from the array.
+	
+	Note: Both the list's will allow the ***elemental modification at that specific indiex..
+	
+	Below are the examples for Arrays.asList(<array>):
+	
+	  1. Structral Modification
+	    
+		public class Sample 
+		{
+		  public static void main(String args[]) throws Exception
+		  {
+			  System.out.println( "Hello World!" );
+			  Integer[] ghtIntegers = {10,20,30,40,50};
+			  List<Integer> list = Arrays.asList(ghtIntegers);
+			  list.remove(10); 
+			  System.out.println(list);
+		  }
+		}
+		
+		O/p -- Hello World!
+				Exception in thread "main" java.lang.UnsupportedOperationException
+				at java.base/java.util.AbstractList.remove(AbstractList.java:167)
+				at SampleJavaprograms/SamplePackage.Sample.main(Sample.java:19)
+				
+				
+	  
+	  2. Elemental Modification
+		
+        public class Sample
+		{
+		  public static void main(String args[]) throws Exception
+		  {
+			  System.out.println( "Hello World!" );
+			  Integer[] ghtIntegers = {10,20,30,40,50};
+			  List<Integer> list = Arrays.asList(ghtIntegers);
+			  list.set(0, 100); 
+			  System.out.println(list);
+		  }
+		}	
+		
+		O/p -- Hello World!
+		       [100, 20, 30, 40, 50]
 					
 	
 	Linked List -- Uses a double linked list
