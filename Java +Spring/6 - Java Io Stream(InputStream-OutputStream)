@@ -23,13 +23,14 @@ A stream is a sequence of data.
 		  1.1 : InputStream -- This type of java stream reads data from a source. 
 			                     An InputStream can read data from a file, network connection, or any other I/O device. An InputStream can be used to read data from a file.
 													 
-													Syntax --
+						Syntax --
                                 FileInputStream sourceStream = new FileInputStream("path_to_file");
 																													
 														
 			1.2 : OutputStream -- The outputstream is a java stream that takes data from a Java program and sends or writes it to the destination (data sink).
 			
-									        Syntax -- FileOutputStream targetStream = new FileOutputStream("path_to_file");
+							Syntax -- 
+								FileOutputStream targetStream = new FileOutputStream("path_to_file");
 													
 			
 			Briefly, The data flow from a data source --> Java program =======  input stream. 
@@ -41,11 +42,11 @@ A stream is a sequence of data.
 
 2. Character Stream/CharacterStream classes -- used for 16-bit Unicode input and output operations. (https://www.javatpoint.com/characterstream-classes-in-java)
 																							 
-																							 CharacterStream classes are used to work with Unicode characters that are 16 bits in length. 
-																							 They can work with characters, char arrays, and Strings.
+												CharacterStream classes are used to work with Unicode characters that are 16 bits in length. 
+												They can work with characters, char arrays, and Strings.
 																							 
-																							 The CharacterStream classes, on the other hand, are primarily used to read characters from the source 
-																							 and write them to the destination.
+												The CharacterStream classes, on the other hand, are primarily used to read characters from the source 
+												and write them to the destination.
 
 
 		Based on the primary purpose, this stream is classified into 2 types again
@@ -68,10 +69,11 @@ A stream is a sequence of data.
 Eg program -- https://www.prepbytes.com/blog/java/streams-in-java/#:~:text=Example%20of%20Character%20Java%20Stream%3A
 
 Note: 1. The classes using either of the streams has to implement the Checked exception. After all, these streams are related to the files.
+
       2. The above example programs contains the **unbuffered streams & are **less efficient. We typically ***use them with buffered readers/writers for efficiency.
-          We will soon be discussing use  **** BufferedInputStream/BufferedOutputStream (for byte stream) classes. 
-																																and 
-																					****BufferedReader/BufferedWriter (for character stream) 
+          We will soon be discussing use  **** BufferedInputStream/BufferedOutputStream (for byte stream) classes 
+		                              and **** BufferedReader/BufferedWriter (for character stream) 
+									  
       3. Names of character streams typically end with Reader/Writer and 
 			   names of byte streams end with InputStream/OutputStream																																	
 					                               
@@ -81,7 +83,7 @@ Note: 1. The classes using either of the streams has to implement the Checked ex
 
 
 InputStreamReader class -- A CharacterStream class(suffix -- "Reader")
-												-- is a bridge from byte streams to character streams. It reads bytes and decodes them into characters using a specified charset.
+						-- is a bridge from byte streams to character streams. It reads bytes and decodes them into characters using a specified charset.
                         -- The charset that it uses may be specified by name or may be given explicitly, or the platform's default charset may be accepted
 
             Refer -- Constructors to see which type of objects it accepts.
@@ -150,14 +152,11 @@ The character stream is used to perform 16-bit Unicode input and output operatio
 
 Why Character Streams when Byte Stream existis?
 														
-																							 Java characters are 2 bytes (or 16 bits) in size. CharacterStream classes are provided by the java.io package to overcome 
-																							 the limitations of ByteStream classes, which can only handle 8-bit bytes and are incompatible with working ***directly with 
-																							 Unicode characters. 
+Java characters are 2 bytes (or 16 bits) in size. CharacterStream classes are provided by the java.io package to overcome 
+the limitations of ByteStream classes, which can only handle 8-bit bytes and are incompatible with working ***directly with 
+Unicode characters. 
 																	
 			
-
-
-
 
 I/O Stream means an input source or output destination representing different types of sources e.g. disk files. The java.io package provides classes that allow you 
 to convert between Unicode character streams and byte streams of non-Unicode text.
