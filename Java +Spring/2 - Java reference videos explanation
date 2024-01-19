@@ -188,6 +188,7 @@ Abstraction  -- Abstraction is a process of hiding the implementation details an
                      ****constructor, and *****even main() method.
 										 
    Note: We can not instantiate an Abstract class(Object can not be created).
+         main() is a static method[public ***static void main] so there is no need of object for invoking it.
 									
    Abstract method:	should have keyword "abstract" in the method signature
                     If there is an abstract method in a class, that class must be abstract.
@@ -282,7 +283,9 @@ The constructor inside the abstract class ***can only be called during ***constr
 This is also one of the reasons abstract class can have a constructor.
 
 
+Why Java Interfaces Cannot Have Constructor But Abstract Classes Can Have?
 
+https://www.geeksforgeeks.org/why-java-interfaces-cannot-have-constructor-but-abstract-classes-can-have/
 
 Eg: Java program to demonstrate static method
 
@@ -333,11 +336,12 @@ Why can’t static methods be abstract in Java?-- https://www.geeksforgeeks.org/
 									
 Interface -- all methods are ***abstract + public by default
             all members are ****public + static + final by default
-						Multiple inheritance can be practically implementable using the interface
-            In Jave 1.8 **intoduced the default and static methods which will allow to have method body 
-						in the interface from java8
-						Note: A class, implementing an interface must implement every method, else it should be declared as "abstract class"
-						      The implementing class is allowed to override the default methods if needed. (Its not mandatory to override the default methods in the implementing class).
+          
+  Multiple inheritance can be practically implementable using the interface
+  In Jave 1.8 **intoduced the default and static methods which will allow to have method body in the interface from java8
+
+ Note: A class, implementing an interface must implement every method, else it should be declared as "abstract class"
+ The implementing class is allowed to override the default methods if needed. (Its not mandatory to override the default methods in the implementing class).
 									
 1. Types of Interface -- Functional, Normal, Marker interface
 
@@ -427,11 +431,11 @@ interface B{
 }
 
 
-public class ChildClass implements A, C {
+public class ChildClass implements A, B {
     @Override    
     public void foo() {
        doSomethingElse();  //you could completely override the default implementations; Invoking a different function..
-       A.super.foo();  // or manage conflicts between the same method foo() in both A and C. Here calling the original default method belonging to interface A
+       A.super.foo();  // or manage conflicts between the same method foo() in both A and B. Here calling the original default method belonging to interface A
     }
     public void bah() {
        A.super.foo(); //original foo() from A accessed
@@ -453,7 +457,7 @@ O/p - Interface A's default method
 
 static methods --
 
-The problem with the default method, is to invoke them, ***there is an instance of a class that implements the interface
+***The problem with the default method, is to invoke them, ***there is an instance of a class that implements the interface
 needs to be created. Instead, for a static method we can simply call the method with Interface name similar to invoking the static methods belonging to a class.
 
 Eg: i1.staticMethod1();
@@ -461,9 +465,6 @@ Eg: i1.staticMethod1();
 
 Note: Static methods defined in the interface can not be ovverided in the implementing classes.
 
-
-
-3. Lambda Expressions + Functional Interface -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6
 4. Anonymous class implementing the interface -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6 
 5. Note down the words that telusko guy uses for Anonymous class vs Normal class
 What is an API? -- Application Packaging Interface -- Contains the varoius classes and interfaces in it.
@@ -478,7 +479,9 @@ Comparable --
 1. Its an interface, which a class needs to implement
 2. compareTo method definition needs to be provided
   2.1 compareTo method returns interger.. +ve if greater, -ve less, 0 if equal
-3. Natural sorting i.e, Integer class implementes the Comparable interface.. So, by default when we invoke collection.sort(array of integers)	works..
+  2.2 compareTo(Obj1 that) accepts an argument. This method is triggered on a instance.. So no need of explicitly passing the first value.
+3. Natural sorting i.e, Integer class implementes the Comparable interface.. which means they have provided the method definition for the compareTo()
+So, by default when we invoke collection.sort(array of integers) works..
 	
 Comparator
 1. its also an interface
