@@ -230,7 +230,7 @@ class MainClass
 		Thread t1 = new Thread(hello);
 		Thread t2 = new Thread(hi);
 		hello.start();
-		Hi.start();
+		hi.start();
 	}
 }
 
@@ -261,6 +261,9 @@ class MainClass
 }
 
 Ref: https://www.youtube.com/playlist?list=PLsyeobzWxl7rmuFYRpkqLanwoG4pQQ7oW __ Telusko Multi Threading Playlist
+
+Is it necessary to define run() method when extending Thread class?
+https://stackoverflow.com/questions/52263038/is-it-necessary-to-define-run-method-when-extending-thread-class#:~:text=Because%20you%27re%20extending%20Thread%20and%20not%20supplying%20a%20separate%20Runnable%2C%20your%20class%20inherits%20the%20run%20method%3B%20run%20runs%20and%20does%20nothing.
 
 Threads
 1. Using Thread class
