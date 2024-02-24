@@ -173,6 +173,8 @@ isEmpty() -- checks if the string is emtpty or not(length == 0)
 					-- It throws Null pointer Exception when isEmpty is checked with a string whose value is null
 					-- Instead of isEmpty use "==" operator. See below
 					     if (s1 == null) // checks if the string is null or not
+valueOf() -- Returns always a "String" type of value.
+          -- valueOf() method accepts a single argument of different type. This method, will convert that input into a String
 
 
 Abstraction  -- Abstraction is a process of hiding the implementation details and showing only functionality to the user
