@@ -484,9 +484,17 @@ So, by default when we invoke collection.sort(array of integers) works..
 Comparator
 1. its also an interface
 2. compare method(v1, v2) -- v1, and v2 are 2 values that are to be compared and result must be 
-  +ve, if v1>v2
-	-ve, if v1<v2
-3. Basically, the Collections -- class has a sort method which is overloaded to have the comparator -- i.e our own logic on what basis we want to compare
+3. Basically, sorting kosam bubblesort alogorith use chestunnam. In that case, we need to tell the program when to swap the elements such that the final list of elements
+are sorted either in descending or ascending order.
+  return +ve, (if want to swap)
+  return -ve, if do not want to swap
+Ascending order :
+So for ascending order, the swap must happen if the preceeding element is grater than the next element.. so the condition to check this 
+if (v1 > v2) and then return +ve
+So for Descending order, the swap must happen if the preceeding element is less than the next element.. so the condition to check this
+if (v1 < v2) and then return +ve
+
+4. Basically, the Collections -- class has a sort method which is overloaded to have the comparator -- i.e our own logic on what basis we want to compare
 
 Note: So, finally comparator is used to compare the objects based on our logic
 or if a class already implements the comparable interface(compareTo method).. then if not wishing to use the existing comparison.. 
