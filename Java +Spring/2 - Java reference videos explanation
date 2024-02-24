@@ -470,10 +470,6 @@ Note: Static methods defined in the interface can not be ovverided in the implem
 4. Anonymous class implementing the interface -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6 
 5. Note down the words that telusko guy uses for Anonymous class vs Normal class
 What is an API? -- Application Packaging Interface -- Contains the varoius classes and interfaces in it.
-Collection API & Genrics
-1. collection -- concept
-2. Collections -- its a class defined in the Collecition API
-3. Collection -- Root interface of all the different types of collections available in this API. 
 
 Comparatator vs Comparable -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6
 
@@ -499,12 +495,9 @@ Eg: An arrayList of intergers/Strings are sorted automatically using Collections
       Integer class implements Comparator interface(define toCompare(), to sort the elements in the asc order).
 
 
-Stream API in Java8
+HashMap - internally how it works + importance of hashCode() & equals() -- https://www.youtube.com/watch?v=XhK6LG3JbFU
+how to write custom equals() --  https://www.youtube.com/watch?v=n-KC2WqvG_k
 
-All the above are explained in the Telusko playslist
-Link : 	https://www.youtube.com/playlist?list=PLsyeobzWxl7pFZoGT1NbZJpywedeyzyaf
-
-HashMap - internally how it works
 Stack vs Heap memory
 final vs finally vs finalize -- keywords in the exception handling inside Java.
 final -- access modifier. 
