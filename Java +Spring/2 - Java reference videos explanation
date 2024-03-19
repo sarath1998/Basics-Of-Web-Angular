@@ -173,6 +173,8 @@ isEmpty() -- checks if the string is emtpty or not(length == 0)
 					-- It throws Null pointer Exception when isEmpty is checked with a string whose value is null
 					-- Instead of isEmpty use "==" operator. See below
 					     if (s1 == null) // checks if the string is null or not
+valueOf() -- Returns always a "String" type of value.
+          -- valueOf() method accepts a single argument of different type. This method, will convert that input into a String
 
 
 Abstraction  -- Abstraction is a process of hiding the implementation details and showing only functionality to the user
@@ -188,6 +190,7 @@ Abstraction  -- Abstraction is a process of hiding the implementation details an
                      ****constructor, and *****even main() method.
 										 
    Note: We can not instantiate an Abstract class(Object can not be created).
+         main() is a static method[public ***static void main] so there is no need of object for invoking it.
 									
    Abstract method:	should have keyword "abstract" in the method signature
                     If there is an abstract method in a class, that class must be abstract.
@@ -282,7 +285,9 @@ The constructor inside the abstract class ***can only be called during ***constr
 This is also one of the reasons abstract class can have a constructor.
 
 
+Why Java Interfaces Cannot Have Constructor But Abstract Classes Can Have?
 
+https://www.geeksforgeeks.org/why-java-interfaces-cannot-have-constructor-but-abstract-classes-can-have/
 
 Eg: Java program to demonstrate static method
 
@@ -333,11 +338,12 @@ Why can’t static methods be abstract in Java?-- https://www.geeksforgeeks.org/
 									
 Interface -- all methods are ***abstract + public by default
             all members are ****public + static + final by default
-						Multiple inheritance can be practically implementable using the interface
-            In Jave 1.8 **intoduced the default and static methods which will allow to have method body 
-						in the interface from java8
-						Note: A class, implementing an interface must implement every method, else it should be declared as "abstract class"
-						      The implementing class is allowed to override the default methods if needed. (Its not mandatory to override the default methods in the implementing class).
+          
+  Multiple inheritance can be practically implementable using the interface
+  In Jave 1.8 **intoduced the default and static methods which will allow to have method body in the interface from java8
+
+ Note: A class, implementing an interface must implement every method, else it should be declared as "abstract class"
+ The implementing class is allowed to override the default methods if needed. (Its not mandatory to override the default methods in the implementing class).
 									
 1. Types of Interface -- Functional, Normal, Marker interface
 
@@ -427,11 +433,11 @@ interface B{
 }
 
 
-public class ChildClass implements A, C {
+public class ChildClass implements A, B {
     @Override    
     public void foo() {
        doSomethingElse();  //you could completely override the default implementations; Invoking a different function..
-       A.super.foo();  // or manage conflicts between the same method foo() in both A and C. Here calling the original default method belonging to interface A
+       A.super.foo();  // or manage conflicts between the same method foo() in both A and B. Here calling the original default method belonging to interface A
     }
     public void bah() {
        A.super.foo(); //original foo() from A accessed
@@ -453,7 +459,7 @@ O/p - Interface A's default method
 
 static methods --
 
-The problem with the default method, is to invoke them, ***there is an instance of a class that implements the interface
+***The problem with the default method, is to invoke them, ***there is an instance of a class that implements the interface
 needs to be created. Instead, for a static method we can simply call the method with Interface name similar to invoking the static methods belonging to a class.
 
 Eg: i1.staticMethod1();
@@ -461,16 +467,9 @@ Eg: i1.staticMethod1();
 
 Note: Static methods defined in the interface can not be ovverided in the implementing classes.
 
-
-
-3. Lambda Expressions + Functional Interface -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6
 4. Anonymous class implementing the interface -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6 
 5. Note down the words that telusko guy uses for Anonymous class vs Normal class
 What is an API? -- Application Packaging Interface -- Contains the varoius classes and interfaces in it.
-Collection API & Genrics
-1. collection -- concept
-2. Collections -- its a class defined in the Collecition API
-3. Collection -- Root interface of all the different types of collections available in this API. 
 
 Comparatator vs Comparable -- https://youtu.be/ZA2oNhtNk3w?si=ylfcRZcMmVALchf6
 
@@ -478,14 +477,24 @@ Comparable --
 1. Its an interface, which a class needs to implement
 2. compareTo method definition needs to be provided
   2.1 compareTo method returns interger.. +ve if greater, -ve less, 0 if equal
-3. Natural sorting i.e, Integer class implementes the Comparable interface.. So, by default when we invoke collection.sort(array of integers)	works..
+  2.2 compareTo(Obj1 that) accepts an argument. This method is triggered on a instance.. So no need of explicitly passing the first value.
+3. Natural sorting i.e, Integer class implementes the Comparable interface.. which means they have provided the method definition for the compareTo()
+So, by default when we invoke collection.sort(array of integers) works..
 	
 Comparator
 1. its also an interface
 2. compare method(v1, v2) -- v1, and v2 are 2 values that are to be compared and result must be 
-  +ve, if v1>v2
-	-ve, if v1<v2
-3. Basically, the Collections -- class has a sort method which is overloaded to have the comparator -- i.e our own logic on what basis we want to compare
+3. Basically, sorting kosam bubblesort alogorith use chestunnam. In that case, we need to tell the program when to swap the elements such that the final list of elements
+are sorted either in descending or ascending order.
+  return +ve, (if want to swap)
+  return -ve, if do not want to swap
+Ascending order :
+So for ascending order, the swap must happen if the preceeding element is grater than the next element.. so the condition to check this 
+if (v1 > v2) and then return +ve
+So for Descending order, the swap must happen if the preceeding element is less than the next element.. so the condition to check this
+if (v1 < v2) and then return +ve
+
+4. Basically, the Collections -- class has a sort method which is overloaded to have the comparator -- i.e our own logic on what basis we want to compare
 
 Note: So, finally comparator is used to compare the objects based on our logic
 or if a class already implements the comparable interface(compareTo method).. then if not wishing to use the existing comparison.. 
@@ -494,12 +503,9 @@ Eg: An arrayList of intergers/Strings are sorted automatically using Collections
       Integer class implements Comparator interface(define toCompare(), to sort the elements in the asc order).
 
 
-Stream API in Java8
+HashMap - internally how it works + importance of hashCode() & equals() -- https://www.youtube.com/watch?v=XhK6LG3JbFU
+how to write custom equals() --  https://www.youtube.com/watch?v=n-KC2WqvG_k
 
-All the above are explained in the Telusko playslist
-Link : 	https://www.youtube.com/playlist?list=PLsyeobzWxl7pFZoGT1NbZJpywedeyzyaf
-
-HashMap - internally how it works
 Stack vs Heap memory
 final vs finally vs finalize -- keywords in the exception handling inside Java.
 final -- access modifier. 

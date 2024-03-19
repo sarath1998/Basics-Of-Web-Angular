@@ -165,76 +165,8 @@ interface If2
 O/p -- Compile time erroras the user mentioned the annotation but declared 2 abstract methods against the Funtional Interface concept.
 
 
-
-Now Let's see below how to convert the conventioal Interface with only 1 method is 
-
-converted to Lambda expression.
-
-
-Regular version of Code:
-
-Eg 1:
-
-interface If1
-{
-	public void m1();
-}
-class C1 implements If1
-{
-	public void m1()
-	{
-		sysout("Inside the m1 body -- Regaular conventional code");
-	}
-}
-
-class C3
-{
-	public static void main(String s[])
-	{
-		If1 if1 = new C1();
-		if1.m1();
-	}
-}
-
-
-O/p -- Inside the m1 bode -- Regular conventioanl code
-
-
-
-Now, re-write the above code using the Functional interface..
-
-Since If1 is a Functional interface have only 1 method declared, we can crisp the code using the Lamdba expression.
-Therefore, we define the implementation for the abstract method and then create an instance in the same line
-
-
-interface If1
-{
-	public void m1();
-}
-class C3
-{
-	If1 if1 = () --> sysout("Inside the m1 body -- Using the Functioal Interface");
-	if1.m1(); // Invoking the m1 is explicitly needs to be done by the user.
-}
-
-To observe, 
-
-i) No explicit seperate class for the interface implementation.
-ii) Line 216, lo RHS side of contains the LAMDA expression used for providing the method definition as follows :
-
-     1. No method name -- removed m1
-	 2. No return type -- remove void
-	 3. No access modifier -- removed public
-	 4. Only 1 line of code in the method body -- No braces provided in the RHS.
-     5. The --> sysmbol is used to represent a LAMBDA expression. 
-
-iii)  new -- new keyword not needed.. as compiler can understand that we're using the Lambda expression.
-iv) Method invocation ki Lamda expression ki sambandam ledu.. Method invocation needs to be done similarly as in the regular code.
-
-
  Anonymous Inner Class
- 
- 
+  
  We know, we can not create an object for an interface directly. Instead, we provide the implementation class
  and then create an instance for it. In a conventional way, this class will be having some name.. for eg:
   
@@ -417,6 +349,75 @@ As we know, the pre-requisite for a LAMBDA expression is a Functional Interface/
 
 
  So An Anonymous Inner class can be converted to Lamda expression, only if the implementing interface is a Functional Interface.
+
+Now Let's see below how to convert the conventioal Interface with only 1 method is 
+
+converted to Lambda expression.
+
+
+Regular version of Code:
+
+Eg 1:
+
+interface If1
+{
+	public void m1();
+}
+class C1 implements If1
+{
+	public void m1()
+	{
+		sysout("Inside the m1 body -- Regaular conventional code");
+	}
+}
+
+class C3
+{
+	public static void main(String s[])
+	{
+		If1 if1 = new C1();
+		if1.m1();
+	}
+}
+
+
+O/p -- Inside the m1 bode -- Regular conventioanl code
+
+
+
+Now, re-write the above code using the Functional interface..
+
+Since If1 is a Functional interface have only 1 method declared, we can crisp the code using the Lamdba expression.
+Therefore, we define the implementation for the abstract method and then create an instance in the same line
+
+
+interface If1
+{
+	public void m1();
+}
+class C3
+{
+     public static void main()
+     {
+	If1 if1 = () --> sysout("Inside the m1 body -- Using the Functioal Interface");
+	if1.m1(); // Invoking the m1 is explicitly needs to be done by the user.
+     }
+}
+
+To observe, 
+
+i) No explicit seperate class for the interface implementation.
+ii) Line 402, lo RHS side of contains the LAMDA expression used for providing the method definition as follows :
+
+     1. No method name -- removed m1
+	 2. No return type -- remove void
+	 3. No access modifier -- removed public
+	 4. Only 1 line of code in the method body -- No braces provided in the RHS.
+     5. The --> sysmbol is used to represent a LAMBDA expression. 
+
+iii)  new -- new keyword not needed.. as compiler can understand that we're using the Lambda expression.
+iv) Method invocation ki Lamda expression ki sambandam ledu.. Method invocation needs to be done similarly as in the regular code.
+
 
 For eg: Take previous example implementing the Runnable interface, which has the run() to be override.
 If observed carefully, Runnable interface is a SAM and we can apply the LAMDA expression on it.
